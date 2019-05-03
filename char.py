@@ -8,5 +8,5 @@ class Char:
     def get_value(self):
         return value
 
-    self.name = 0
-    self.value = 0
+    self.name = None
+    self.value = None
