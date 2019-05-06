@@ -6,7 +6,10 @@ class Char:
         self.value = new_value
 
     def get_value(self):
-        return value
+        return self.value
 
-    self.name = 0
-    self.value = 0
+    def get_name(self):
+        return self.name
+
+    name = None
+    value = None
