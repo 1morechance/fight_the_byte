@@ -114,13 +114,23 @@ class Init_pointer_card:
 
 # Карточка putchar(char a);
 class Putchar_card:
-    def __init__(self, char_variable):
-        self.char_object = char_variable
-    def output(self):
-        # здесь идет связь с GUI(метод output возвратит вам значение переменной типа char) 
-        return self.char_object.get_value()
+    def __init__(self, char_name):
+        self.name = char_name
+    def action(self): 
+        global char_case
+        is_exist = False
+        for var in char_case:
+            if var.get_name() == self.name:
+                is_exist = True
+                if var.get_value() != None:
+                    # тут вывод в GUI вместо консоли
+                    print(var.get_value())
+                else:
+                    raise RuntimeError("Ошибка: " + self.name + " не была инициализирована ранее")
+        if (not is_exist):
+            raise RuntimeError("Ошибка: " + self.name + " не была объявлена ранее")
 
-    self.char_object = None
+    name = None
 
 #class Putchar_pointer_card:
     
