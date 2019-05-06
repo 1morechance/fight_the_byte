@@ -33,7 +33,6 @@ class Declaration_card:
 
     def action(self):
         global char_case
-        #global Char
         for var in char_case:
             if var.get_name() == self.name:
                 raise RuntimeError("Ошибка компиляции: двойное объявление переменной " + self.name)   
@@ -46,18 +45,22 @@ class Declaration_card:
 
 # Карточка для совместного обьявления и инициализации(char a = 'L';)
 class Init_declaration_card:
-    def __init__(self, char_value, char_name):
+    def __init__(self, char_name, char_value):
         self.value = char_value
         self.name = char_name
 
-    def assign_name(self, char_variable):
-        char_variable.set_name(self.name)
+    def action(self):
+        global char_case
+        for var in char_case:
+            if var.get_name() == self.name:
+                raise RuntimeError("Ошибка компиляции: двойное объявление переменной " + self.name)    
+        new_var = Char()
+        new_var.set_name(self.name)
+        new_var.set_value(self.value)
+        char_case.append(new_var)
 
-    def assign_value(self, char_variable):
-        char_variable.set_value(self.value)
-
-    self.name = None
-    self.value = None
+    name = None
+    value = None
 
 # Карточка для присваивания переменных типа char(char a, char b: a = b)
 class Value_to_value_card:
