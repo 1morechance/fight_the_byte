@@ -99,17 +99,27 @@ class Value_to_value_card:
     right = None
 
 # Карточка объявления указателя (char *a;)
-class Init_pointer_card:
+class Declaration_p_card:
     def __init__(self, pointer_name):
         self.name = pointer_name
     
-    def assign_name(self, pointer_variable):
-        pointer_variable.set_name(self.name)
+    def action(self):
+        global pointer_char_case
+        is_exist = False
+        for p_var in pointer_char_case:
+            if (p_var.get_name() == self.name):
+                is_exist = True
+        if (is_exist):
+            raise RuntimeError("Ошибка: указатель " + self.name + " был объявлен ранее")    
+        else:
+            new_p = Pointer_Char()
+            new_p.set_name(self.name)
+            pointer_char_case.append(new_p)
 
-    self.name = None
+    name = None
 
 # Карточка инициализации указателя (a = &b;)
-#class Declaration_pointer_card:
+# class Declaration_pointer_card:
 
 
 # Карточка putchar(char a);
