@@ -1,13 +1,15 @@
 class Pointer_Char:
-    def set_name(self, new_name):
-        self.name = new_name
+    def set_name(self, ref_name):
+        self.name = ref_name
 
-    def set_reference(self, char_variable):
-        self.reference = char_variable
+    def set_reference(self, char_name):
+        self.reference = char_name
 
-    # Тут возвращается объект класса char
     def get_reference(self):
-        return self.reference 
+        return self.reference
 
-    self.name = None
-    self.reference = None
+    def get_name(self):
+        return self.name
+
+    name = None
+    reference = None
