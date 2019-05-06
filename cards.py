@@ -1,6 +1,7 @@
 char_case = []
 pointer_char_case = []
-# Массивы, хранящие все созданные переменные(объекты классов Char и )
+# Массивы, хранящие все созданные переменные(объекты классов Char и Pointer_char)
+# Они используются только эмулятором
 
 import char
 
@@ -64,16 +65,38 @@ class Init_declaration_card:
 
 # Карточка для присваивания переменных типа char(char a, char b: a = b)
 class Value_to_value_card:
-    # left_char, right char - объекты класа char
-    def __init__(self, left_char, right_char):
-        self.left = left_char
-        self.right = right_char
+    def __init__(self, left_name, right_name):
+        self.left = left_name
+        self.right = right_name
 
-    def assign():
-        self.left.set_value(self.right.get_value())
-    
-    self.left = None
-    self.right = None
+    def assign(self, right_var):
+        global char_case
+        for var in char_case:
+            if var.get_name() == self.left:
+                var.set_value(right_var.get_value())
+
+    def action(self):
+        global char_case
+        is_exist_left = False
+        is_exist_right = False
+        for var in char_case:
+            if var.get_name() == self.left:
+                is_exist_left = True
+            elif var.get_name() == self.right:
+                is_exist_right = True
+                right_var = var
+        if (is_exist_left and is_exist_right):
+            if (right_var.get_value() != None):
+                self.assign(right_var)
+            else:
+                raise RuntimeError("Ошибка: " + self.right + " не была инициализирована ранее")
+        elif (not is_exist_left):
+            raise RuntimeError("Ошибка: " + self.left + " не была объявлена ранее")
+        else:
+            raise RuntimeError("Ошибка: " + self.right + " не была объявлена ранее")
+            
+    left = None
+    right = None
 
 # Карточка объявления указателя (char *a;)
 class Init_pointer_card:
