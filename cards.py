@@ -16,7 +16,6 @@ class Init_card:
         global char_case
         is_exist = False
         for var in char_case:
-            print(var.get_name())
             if var.get_name() == self.name:
                 char_variable.set_value(self.value)
                 is_exist = True
@@ -32,12 +31,17 @@ class Declaration_card:
     def __init__(self, char_name):
         self.name = char_name
 
-    def assign_name(self, char_variable):
-        char_variable.set_name(self.value)
-
-    
-
-    self.name = None
+    def action(self):
+        global char_case
+        #global Char
+        for var in char_case:
+            if var.get_name() == self.name:
+                raise RuntimeError("Ошибка компиляции: двойное объявление переменной " + self.name)   
+        new_var = Char()
+        new_var.set_name(self.name)
+        char_case.append(new_var)
+        
+    name = None
 
 
 # Карточка для совместного обьявления и инициализации(char a = 'L';)
