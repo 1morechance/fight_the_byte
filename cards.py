@@ -22,7 +22,7 @@ class Init_card:
                 is_exist = True
                 break
         if (not is_exist):
-            raise RuntimeError("Ошибка компиляции: " + self.name + " не была объявлена ранее")
+            raise RuntimeError("Ошибка: переменная" + self.name + " не была объявлена ранее")
 
     value = None
     name = None
@@ -36,7 +36,7 @@ class Declaration_card:
         global char_case
         for var in char_case:
             if var.get_name() == self.name:
-                raise RuntimeError("Ошибка компиляции: двойное объявление переменной " + self.name)   
+                raise RuntimeError("Ошибка: двойное объявление переменной " + self.name)   
         new_var = Char()
         new_var.set_name(self.name)
         char_case.append(new_var)
@@ -54,7 +54,7 @@ class Init_declaration_card:
         global char_case
         for var in char_case:
             if var.get_name() == self.name:
-                raise RuntimeError("Ошибка компиляции: двойное объявление переменной " + self.name)    
+                raise RuntimeError("Ошибка: двойное объявление переменной " + self.name)    
         new_var = Char()
         new_var.set_name(self.name)
         new_var.set_value(self.value)
@@ -131,7 +131,6 @@ class Init_p_card:
                 var_p.set_reference(self.ref)
                 break
             
-
     def action(self):
         global pointer_char_case
         global char_case
@@ -152,15 +151,14 @@ class Init_p_card:
         else:
             self.assign()
             
-
     name = None
     ref = None
-
 
 # Карточка putchar(char a);
 class Putchar_card:
     def __init__(self, char_name):
         self.name = char_name
+        
     def action(self): 
         global char_case
         is_exist = False
@@ -178,5 +176,54 @@ class Putchar_card:
     name = None
 
 # Карточка для вывода указателя (putchar(*a))
-#class Putchar_pointer_card:
+class Putchar_p_card:
+    global pointer_char_case
+    global char_case
     
+    def __init__(self, pointer_name):
+        self.name = pointer_name
+
+    def not_none(self, pointer_object):
+        if pointer_object.get_reference() == None:
+            return 1
+        for var in char_case:
+            if (var.get_name() == pointer_object.get_reference() and
+                var.get_value() == None):
+                return 2
+        return 3
+        
+    def output_value(self, pointer_object):
+        for var in char_case:
+            if var.get_name() == pointer_object.get_reference():
+                return (var.get_value())
+
+    def action(self):
+        is_exist = False
+        for p_var in pointer_char_case:
+            if p_var.get_name() == self.name:
+                is_exist = True
+                p_object = p_var
+                break
+        if (not is_exist):
+            raise RuntimeError("Ошибка: указатель " + self.name + " не был объявлен ранее")
+        situation = self.not_none(p_object)
+        if (situation == 1):
+            raise RuntimeError("Ошибка: указатель " + self.name + " ни на что не ссылается")        
+        elif (situation == 2):
+            raise RuntimeError("Ошибка: переменная, на которую ссылается "
+                               + self.name + " не была инициализирована")
+        else:
+            # Connect with GUI метод возвращает значение переменной на которую указывает name
+            print(self.output_value(p_object))
+            
+    name = None
+
+# Карточка для присваивания указателся указателю (a = b)
+#class Pointer_to_pointer:
+
+
+# Карточка для присваивания значения указателя переменной (a = *b)
+
+# Карточка для присваивания значения указателя указателю (*a = *b)
+
+# Special cards
