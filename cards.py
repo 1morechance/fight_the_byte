@@ -119,7 +119,42 @@ class Declaration_p_card:
     name = None
 
 # Карточка инициализации указателя (a = &b;)
-# class Declaration_pointer_card:
+class Init_p_card:
+    def __init__(self, p_name, p_ref):
+        self.name = p_name
+        self.ref = p_ref
+
+    def assign(self):
+        global pointer_char_case
+        for var_p in pointer_char_case:
+            if var_p.get_name() == self.name:
+                var_p.set_reference(self.ref)
+                break
+            
+
+    def action(self):
+        global pointer_char_case
+        global char_case
+        exist_p_char = False
+        exist_char = False
+        for var_p in pointer_char_case:
+            if (var_p.get_name() == self.name):
+                exist_p_char = True
+                break
+        for var in char_case:
+            if (var.get_name() == self.ref):
+                exist_char = True
+                break
+        if (not exist_p_char):
+            raise RuntimeError("Ошибка: указатель " + self.name + " не был объявлен ранее")
+        elif (not exist_char):    
+            raise RuntimeError("Ошибка: переменная " + self.ref + " не была объявлена ранее")   
+        else:
+            self.assign()
+            
+
+    name = None
+    ref = None
 
 
 # Карточка putchar(char a);
@@ -142,5 +177,6 @@ class Putchar_card:
 
     name = None
 
+# Карточка для вывода указателя (putchar(*a))
 #class Putchar_pointer_card:
     
