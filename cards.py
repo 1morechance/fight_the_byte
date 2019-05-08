@@ -63,6 +63,53 @@ class Init_declaration_card:
     name = None
     value = None
 
+# Карточка для объявления переменной через указатель(char a = *b;)
+class Init_by_pointer:
+    global char_case, pointer_char_case
+    def __init__(self, char_name, pointer_name):
+        self.c_name = char_name
+        self.p_name = pointer_name
+
+    def assign(self):
+        if (self.pointer_obj.get_reference() == None):
+            raise RuntimeError("Ошибка: указатель " + self.p_name + " ни на что не ссылается")
+        else:
+            ref = self.pointer_obj.get_reference()
+            for var in char_case:
+                if (var.get_name() == ref):
+                    if var.get_value() == None:
+                        raise RuntimeError("Ошибка: переменная, на которую ссылается указатель "
+                                           + self.p_name + " не была инициализирована")
+                    else:
+                        char_obj = Char()
+                        char_obj.set_value(var.get_value())
+                        char_obj.set_name(self.c_name)
+                        char_case.append(char_obj)
+                    break
+        
+    def action(self):
+        is_exist_c = False
+        is_exist_p = False
+        for var in char_case:
+            if var.get_name() == self.c_name:
+                is_exist_c = True
+                break
+        for var_p in pointer_char_case:
+            if var_p.get_name() == self.p_name:
+                is_exist_p = True
+                self.pointer_obj = var_p
+                break
+        if (is_exist_c):
+            raise RuntimeError("Ошибка: переменная " + self.c_name + " была объявлена ранее")
+        elif (not is_exist_p):
+            raise RuntimeError("Ошибка: указатель " + self.p_name + " не был объявлен ранее")
+        else:
+            self.assign()
+
+    pointer_obj = None
+    c_name = None
+    p_name = None
+
 # Карточка для присваивания переменных типа char(char a, char b: a = b)
 class Value_to_value_card:
     def __init__(self, left_name, right_name):
