@@ -265,8 +265,7 @@ class Putchar_p_card:
 
 # Карточка для присваивания указателся указателю (a = b)
 class Pointer_to_pointer:
-    global pointer_char_case
-    global char_case
+    global pointer_char_case, char_case
 
     def __init__(self, p_1, p_2):
         self.name1 = p_1
@@ -303,6 +302,55 @@ class Pointer_to_pointer:
 
 
 # Карточка для присваивания значения указателя переменной (a = *b)
+class Value_from_pointer:
+    global pointer_char_case, char_case
+
+    def __init__(self, char_name, pointer_name):
+        self.name_c = char_name
+        self.name_p = pointer_name
+
+    def assign(self):
+        for var in char_case:
+            if var.get_name() == self.name_c:
+                var.set_value(self.ref_pointer.get_value())
+                break
+
+    def checkout(self):
+        if (self.pointer.get_reference() == None):
+            raise RuntimeError("Ошибка: указатель " + self.name_p + " не был инициализирован")
+        else:
+            for var in char_case:
+                if (var.get_name() == self.pointer.get_reference()):
+                    self.ref_pointer = var
+                    if self.ref_pointer.get_value() == None:
+                        raise RuntimeError("Ошибка: переменная, на которую ссылается указатель "
+                                           + self.name_p + " не был инициализирована")
+                    else:
+                        self.assign()
+
+    def action(self):
+        is_exist_c = False
+        is_exist_p = False
+        for var in char_case:
+            if var.get_name() == self.name_c:
+                is_exist_c = True
+                break
+        for p_var in pointer_char_case:
+            if p_var.get_name() == self.name_p:
+                self.pointer = p_var
+                is_exist_p = True
+
+        if (not is_exist_c):
+            raise RuntimeError("Вы кретин: переменная " + self.name_c + " не была объявлена")
+        elif (not is_exist_p):
+            raise RuntimeError("Ошибка: указатель " + self.name_p + " не был объявлен")
+        else:
+            self.checkout()
+
+    pointer = None
+    ref_pointer = None
+    name_c = None
+    name_p = None
 
 # Карточка для присваивания значения указателя указателю (*a = *b)
 
