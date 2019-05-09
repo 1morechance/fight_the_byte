@@ -353,5 +353,37 @@ class Value_from_pointer:
     name_p = None
 
 # Карточка для присваивания значения указателя указателю (*a = *b)
+class Value_to_value_p:
+    global char_case, pointer_char_case
 
-# Special cards
+    def __init__(self, p_1, p_2):
+        self.name_left = p_1
+        self.name_right = p_2
+
+    def assign(self):
+        if (self.object_right.get_reference() == None):
+            raise RuntimeError("Ошибка: указатель " + self.name_right + " не был инициализирован")
+        else:
+            for var_p in pointer_char_case:
+                if var_p.get_name() == self.name_left:
+                    var_p.set_reference(self.object_right.get_reference())
+            
+    def action(self):
+        is_exist_left = False
+        is_exist_right = False
+        for p_var in pointer_char_case:
+            if p_var.get_name() == self.name_left:
+                is_exist_left = True
+            elif p_var.get_name() == self.name_right:
+                self.object_right = p_var
+                is_exist_right = True
+        if (not is_exist_left):
+            raise RuntimeError("Ошибка: указатель " + self.name_left + " не был объявлен")
+        elif (not is_exist_right):
+            raise RuntimeError("Ошибка: указатель " + self.name_right + " не был объявлен")
+        else:
+            self.assign()
+
+    object_right = None
+    name_left = None
+    name_right = None
