@@ -360,19 +360,33 @@ class Value_to_value_p:
         self.name_left = p_1
         self.name_right = p_2
 
+    def search(self):
+        for var in char_case:
+            if var.get_name() == self.object_right.get_reference():
+                return var.get_value()
+
     def assign(self):
         if (self.object_right.get_reference() == None):
             raise RuntimeError("Ошибка: указатель " + self.name_right + " не был инициализирован")
         else:
-            for var_p in pointer_char_case:
-                if var_p.get_name() == self.name_left:
-                    var_p.set_reference(self.object_right.get_reference())
+            for var in char_case:
+                if var.get_name() == self.object_right.get_reference():
+                    if var.get_value() == None:
+                        raise RuntimeError("Ошибка: переменная, на которую ссылается указатель "
+                                           + self.name_right + " не была инициализирована")
+                    else:
+                        for char in char_case:
+                            if (char.get_name() == self.object_left.get_reference()):
+                                char.set_value(self.search())
+                                break
+                        break
             
     def action(self):
         is_exist_left = False
         is_exist_right = False
         for p_var in pointer_char_case:
             if p_var.get_name() == self.name_left:
+                self.object_left = p_var
                 is_exist_left = True
             elif p_var.get_name() == self.name_right:
                 self.object_right = p_var
@@ -381,9 +395,13 @@ class Value_to_value_p:
             raise RuntimeError("Ошибка: указатель " + self.name_left + " не был объявлен")
         elif (not is_exist_right):
             raise RuntimeError("Ошибка: указатель " + self.name_right + " не был объявлен")
+        elif (self.object_left.get_reference() == None):
+            raise RuntimeError("Ошибка: указатель " + self.name_left
+                               + " не был инициализирован")
         else:
             self.assign()
 
     object_right = None
+    object_left = None
     name_left = None
     name_right = None
