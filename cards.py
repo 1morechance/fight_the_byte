@@ -1,11 +1,9 @@
 char_case = []
 pointer_char_case = []
 # Массивы, хранящие все созданные переменные(объекты классов Char и Pointer_char)
-# Они используются только эмулятором
+# Они используются только эмулятором и, если надо, рандомайзером
 
 import char
-
-# char_variable - объект класса char, определеленный в ветке char
 
 # Карточка инициализации существующей переменной (a = 'L';)
 class Init_card:
@@ -266,7 +264,42 @@ class Putchar_p_card:
     name = None
 
 # Карточка для присваивания указателся указателю (a = b)
-#class Pointer_to_pointer:
+class Pointer_to_pointer:
+    global pointer_char_case
+    global char_case
+
+    def __init__(self, p_1, p_2):
+        self.name1 = p_1
+        self.name2 = p_2
+
+    def assign(self):
+        if self.p_2.get_reference() == None:
+            raise RuntimeError("Ошибка: указатель " + self.name2 + " не инициализирован")
+        else:
+            for p_var in pointer_char_case:
+                if p_var.get_name() == self.name1:
+                    p_var.set_reference(self.p_2.get_reference())
+                    break
+            
+    def action(self):
+        is_exist_1 = False
+        is_exist_2 = False
+        for p_var in pointer_char_case:
+            if (p_var.get_name() == self.name1):
+                is_exist_1 = True
+            elif (p_var.get_name() == self.name2):
+                is_exist_2 = True
+                self.p_2 = p_var
+        if (not is_exist_1):
+            raise RuntimeError("Ошибка: уазатель " + self.name1 + " не был объявлен ранее")
+        elif (not is_exist_2):
+            raise RuntimeError("Ошибка: уазатель " + self.name2 + " не был объявлен ранее")
+        else:
+            self.assign()
+
+    p_2 = None 
+    name1 = None
+    name2 = None
 
 
 # Карточка для присваивания значения указателя переменной (a = *b)
