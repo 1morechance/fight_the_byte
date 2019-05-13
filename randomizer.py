@@ -42,40 +42,74 @@ def has_value(var):
         return True
 
 
-# TODO
-def create_random_value(vars_data, word):
-    card =
-    return tuple(vars_data, card)
+# # TODO
+# def create_random_card(vars_data, word):
+#
+#     return tuple(vars_data, card)
 
 
 # Генерация очередной карточки
 # TODO: описать создание картчоки (ведь для одно случая разные сценарии)
 # TODO: добавить строчки, которые изменяют DataFrame
 def create_card(vars_data, word):
-    var = vars_data.iloc[randint(0, len(vars_data.index) - 1)]
+    index_main = randint(0, len(vars_data.index) - 1)
+    var = vars_data.iloc[index_main]
 
-    if var['Init'] && has_value(var) && var['Putchar']:
-        vars_data, card = create_random_card(vars_data, word)
-    else:
-        if not var['Init']:
-            card =
+    var_name = var.index
 
-        elif not has_value(var):
-            card =
+    class_amount = 4  # Пока не все реализовано
+    seed = randint(0, class_amount)
 
-        elif not var['Putchar']:
-            card =
+    # Топорно, согласен (beta)
+    # Пока без поинтеров
+    if seed == 0:
+        Card = Init_card(char_name=var_name, char_value=word[randint(0, len(word) - 1)])
+
+    if seed == 1:
+        Card = Declaration_card(char_name=var_name)
+
+    if seed == 2:
+        Card = Init_declaration_card(char_name=var_name, char_value=word[randint(0, len(word) - 1)])
+
+    if seed == 3:
+        index_add = randint(0, len(vars_data.index) - 1)
+        while index_add == index_main:
+            index_add = randint(0, len(vars_data.index) - 1)
+        var_add = vars_data.iloc[index_add]
+        second_var = var_add.index
+        Card = Value_to_value_card(left_name=var_name, right_name=second_var)
+
+    if seed == 4:
+        Card = Putchar_card(char_name=var_name)
 
 
-    return tuple(vars_data, card)
+    # Init_by_pointer нельзя просто случайно генерировать
+    # (нужно понимать какие у нас указатели))
+    # if seed == :
+    #         Card = Init_by_pointer(char_name=var_name)
+
+
+    # if var['Init'] && has_value(var) && var['Putchar']:
+    #     vars_data, card = create_random_card(vars_data, word)
+    # else:
+    #     if not var['Init']:
+    #         card =
+    #
+    #     elif not has_value(var):
+    #         card =
+    #
+    #     elif not var['Putchar']:
+    #         card =
+
+    return tuple(vars_data, Card)
 
 
 # Функция генерации списка карточек на драфте
 def analyse_data(vars_data, word, n):
     cards_array = []
     for i in range(n):
-        vars_data, card = create_card(vars_data, word)
-        cards_array.append(card)
+        vars_data, Card = create_card(vars_data, word)
+        cards_array.append(Card)
     return tuple(vars_data, cards_array)
 
 
@@ -99,7 +133,7 @@ def analyse_data(vars_data, word, n):
 #
 #   n -- Количество карточек на драфте
 #   vars_data -- DataFrame (pandas) с информацией переменных и указателях
-#   word -- слово, которое по заданию надо распечатать игрок
+#   word -- слово, которое по заданию надо распечатать игроку
 def generate_draft(n, vars_data, word):
     if len(vars_data.index) == 0:
         # Число от балды, возможно стоит придумать, как его вычислять
@@ -109,10 +143,3 @@ def generate_draft(n, vars_data, word):
     # кортеж с измененнными DataFrame & список карточек (в таком порядке!)
     output_tuple = analyse_data(vars_data, word, n)
     return output_tuple
-
-
-
-
-
-
-
