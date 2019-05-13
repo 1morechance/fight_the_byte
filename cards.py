@@ -21,6 +21,9 @@ class Init_card:
                 break
         if (not is_exist):
             raise RuntimeError("Ошибка: переменная" + self.name + " не была объявлена ранее")
+    
+    def view(self):
+        return self.name + ' = ' + str(self.value) + ';'
 
     value = None
     name = None
@@ -38,6 +41,9 @@ class Declaration_card:
         new_var = Char()
         new_var.set_name(self.name)
         char_case.append(new_var)
+
+    def view(self):
+        return 'char ' + str(self.name) + ';'
         
     name = None
 
@@ -57,6 +63,9 @@ class Init_declaration_card:
         new_var.set_name(self.name)
         new_var.set_value(self.value)
         char_case.append(new_var)
+
+    def view(self):
+        return 'char ' + str(self.name) + ' = ' + str(self.value) + ';'
 
     name = None
     value = None
@@ -104,24 +113,27 @@ class Init_by_pointer:
         else:
             self.assign()
 
+    def view(self):
+        return 'char ' + str(self.c_name) + ' = *' + str(self.p_name) + ';' 
+
     pointer_obj = None
     c_name = None
     p_name = None
 
-# Карточка для присваивания переменных типа char(char a, char b: a = b)
+# Карточка для присваивания переменных типа char(char a, char b: a = b;)
 class Value_to_value_card:
+    global char_case
+
     def __init__(self, left_name, right_name):
         self.left = left_name
         self.right = right_name
 
     def assign(self, right_var):
-        global char_case
         for var in char_case:
             if var.get_name() == self.left:
                 var.set_value(right_var.get_value())
 
     def action(self):
-        global char_case
         is_exist_left = False
         is_exist_right = False
         for var in char_case:
@@ -139,7 +151,10 @@ class Value_to_value_card:
             raise RuntimeError("Ошибка: " + self.left + " не была объявлена ранее")
         else:
             raise RuntimeError("Ошибка: " + self.right + " не была объявлена ранее")
-            
+
+    def view(self):
+        return str(self.left) + ' = ' + str(self.right) + ';'
+
     left = None
     right = None
 
@@ -161,24 +176,26 @@ class Declaration_p_card:
             new_p.set_name(self.name)
             pointer_char_case.append(new_p)
 
+    def view(self):
+        return 'char *' + str(self.name) + ';'
+
     name = None
 
 # Карточка инициализации указателя (a = &b;)
 class Init_p_card:
+    global pointer_char_case, char_case
+
     def __init__(self, p_name, p_ref):
         self.name = p_name
         self.ref = p_ref
 
     def assign(self):
-        global pointer_char_case
         for var_p in pointer_char_case:
             if var_p.get_name() == self.name:
                 var_p.set_reference(self.ref)
                 break
             
     def action(self):
-        global pointer_char_case
-        global char_case
         exist_p_char = False
         exist_char = False
         for var_p in pointer_char_case:
@@ -196,16 +213,20 @@ class Init_p_card:
         else:
             self.assign()
             
+    def view(self):
+        return str(self.name) + ' = &' + str(self.ref) + ';'
+
     name = None
     ref = None
 
 # Карточка putchar(char a);
 class Putchar_card:
+    global char_case
+
     def __init__(self, char_name):
         self.name = char_name
         
     def action(self): 
-        global char_case
         is_exist = False
         for var in char_case:
             if var.get_name() == self.name:
@@ -218,12 +239,14 @@ class Putchar_card:
         if (not is_exist):
             raise RuntimeError("Ошибка: " + self.name + " не была объявлена ранее")
 
+    def view(self):
+        return 'putchar(' + str(self.name) + ');'
+
     name = None
 
 # Карточка для вывода указателя (putchar(*a))
 class Putchar_p_card:
-    global pointer_char_case
-    global char_case
+    global pointer_char_case, char_case
     
     def __init__(self, pointer_name):
         self.name = pointer_name
@@ -260,7 +283,10 @@ class Putchar_p_card:
         else:
             # Connect with GUI метод возвращает значение переменной на которую указывает name
             print(self.output_value(p_object))
-            
+    
+    def view(self):
+        return 'putchar(*' + str(self.name) + ');'
+
     name = None
 
 # Карточка для присваивания указателся указателю (a = b)
@@ -295,6 +321,9 @@ class Pointer_to_pointer:
             raise RuntimeError("Ошибка: уазатель " + self.name2 + " не был объявлен ранее")
         else:
             self.assign()
+
+    def view(self):
+        return str(self.name1) + ' = ' + str(self.name2) + ';'
 
     p_2 = None 
     name1 = None
@@ -346,6 +375,9 @@ class Value_from_pointer:
             raise RuntimeError("Ошибка: указатель " + self.name_p + " не был объявлен")
         else:
             self.checkout()
+
+    def view(self):
+        return str(self.name_c) + ' = *' + str(self.name_p) + ';' 
 
     pointer = None
     ref_pointer = None
@@ -400,6 +432,9 @@ class Value_to_value_p:
                                + " не был инициализирован")
         else:
             self.assign()
+
+    def view(self):
+        return '*' + str(self.name_left) + ' = *' + str(self.name_right) + ';'
 
     object_right = None
     object_left = None
