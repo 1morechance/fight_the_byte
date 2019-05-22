@@ -1,5 +1,5 @@
 import sys
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore, QtGui
 import main_menu
 import game_process_menu
 import settings
@@ -23,6 +23,7 @@ class Main_Window(QtWidgets.QMainWindow, main_menu.Ui_MainWindow):
     # В функции Game, НЕОБХОДИМО ДЕВЕЛОПЕРАМ написать начало игры
     def Game(self):
         self.dialog_game_process.show()
+        
 
     def Settings(self):
         self.dialog_settings.show()
@@ -35,6 +36,10 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
     def __init__(self, parent=None):
         super().__init__()
         self.setupUi(self)
+        self.Back_to_main_menu_button.clicked.connect(self.comeback)
+
+    def comeback(self):
+        self.hide()
         
 # Описание окна настроек, которое ни на что не влияет потому что никто не удосужился заняться звуком)
 class Settings_Window(QtWidgets.QMainWindow, settings.Ui_MainWindow):
@@ -61,6 +66,7 @@ def main():
     app = QtWidgets.QApplication(sys.argv)
     main_window = Main_Window()
     main_window.show()
+    
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
