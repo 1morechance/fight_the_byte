@@ -29,7 +29,7 @@ def generate_vars(m):
                               'Init': [False for i in range(m)],      # True OR False
                               'Value': [None for i in range(m)],      # <Value> OR None
                               'Putchar': [False for i in range(m)]},  # True OR False
-                            index=names_list)
+                             index=names_list)
     vars_data.index.name = 'Variables'
     return vars_data
 
@@ -43,19 +43,23 @@ def has_value(var):
 
 
 # # TODO
-# def create_random_card(vars_data, word):
+# def create_card(vars_data, word):
+#     index_main = randint(0, len(vars_data.index) - 1)
+#     var = vars_data.iloc[index_main]
 #
-#     return tuple(vars_data, card)
+#     var_name = var.index
+#
+#     if
+#
+#
+#     return vars_data, card
 
 
 # Генерация очередной карточки
 # TODO: описать создание картчоки (ведь для одно случая разные сценарии)
 # TODO: добавить строчки, которые изменяют DataFrame
-def create_card(vars_data, word):
-    index_main = randint(0, len(vars_data.index) - 1)
-    var = vars_data.iloc[index_main]
-
-    var_name = var.index
+def create_random_card(vars_data, word):
+    var_name = vars_data.index[randint(0, len(vars_data.index) - 1)]
 
     class_amount = 4  # Пока не все реализовано
     seed = randint(0, class_amount)
@@ -101,16 +105,16 @@ def create_card(vars_data, word):
     #     elif not var['Putchar']:
     #         card =
 
-    return tuple(vars_data, Card)
+    return vars_data, Card
 
 
 # Функция генерации списка карточек на драфте
 def analyse_data(vars_data, word, n):
     cards_array = []
     for i in range(n):
-        vars_data, Card = create_card(vars_data, word)
+        vars_data, Card = create_random_card(vars_data, word)
         cards_array.append(Card)
-    return tuple(vars_data, cards_array)
+    return vars_data, cards_array
 
 
 # Возможная идея (продолжение не получила, но вдруг еще пригодится)
