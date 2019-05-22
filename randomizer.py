@@ -59,7 +59,8 @@ def has_value(var):
 # TODO: описать создание картчоки (ведь для одно случая разные сценарии)
 # TODO: добавить строчки, которые изменяют DataFrame
 def create_random_card(vars_data, word):
-    var_name = vars_data.index[randint(0, len(vars_data.index) - 1)]
+    index_main = randint(0, len(vars_data.index) - 1)
+    var_name = vars_data.index[index_main]
 
     class_amount = 4  # Пока не все реализовано
     seed = randint(0, class_amount)
@@ -79,8 +80,7 @@ def create_random_card(vars_data, word):
         index_add = randint(0, len(vars_data.index) - 1)
         while index_add == index_main:
             index_add = randint(0, len(vars_data.index) - 1)
-        var_add = vars_data.iloc[index_add]
-        second_var = var_add.index
+        second_var = vars_data.index[index_add]
         Card = Value_to_value_card(left_name=var_name, right_name=second_var)
 
     if seed == 4:
