@@ -56,7 +56,10 @@ class Init_card_another_var:
                 break
         if (not existance):
             raise RuntimeError("Ошибка: переменная " + self.right_char + " не была объявлена ранее")
-            
+
+    def view(self):
+        return 'char ' + str(self.left_char) + ' = ' + str(self.right_char) + ';'
+
     left_char = None
     right_char = None
 
