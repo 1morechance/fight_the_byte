@@ -3,7 +3,8 @@ pointer_char_case = []
 # Массивы, хранящие все созданные переменные(объекты классов Char и Pointer_char)
 # Они используются только эмулятором и, если надо, рандомайзером
 
-import char
+from char import Char
+from pointer_char import Pointer_Char
 
 # Карточка инициализации существующей переменной (a = 'L';)
 class Init_card:
@@ -20,13 +21,44 @@ class Init_card:
                 is_exist = True
                 break
         if (not is_exist):
-            raise RuntimeError("Ошибка: переменная" + self.name + " не была объявлена ранее")
+            raise RuntimeError("Ошибка: переменная " + self.name + " не была объявлена ранее")
     
     def view(self):
-        return self.name + ' = ' + str(self.value) + ';'
+        return self.name + ' = \'' + str(self.value) + '\';'
 
     value = None
     name = None
+
+# Карточка для совместного объявления и инициализации другой переменной(char a = b;)
+class Init_card_another_var:
+    global char_case
+    def __init__(self, left_name, right_name):
+        self.left_char = left_name
+        self.right_char = right_name
+
+    def assignment(self, value):
+        if value == None:
+            raise RuntimeError("Ошибка: переменная " + self.right_char + " не была инициализирована")
+        new_char = Char()
+        new_char.set_name(self.left_char)
+        new_char.set_value(value)
+        char_case.append(new_char)    
+
+    def action(self):
+        for var in char_case:
+            if var.get_name() == self.left_char:
+                raise RuntimeError("Ошибка: переменная " + self.left_char + " была объявлена ранее")
+        existance = False     
+        for var in char_case:
+            if var.get_name() == self.right_char:
+                existance = True
+                self.assignment(var.get_value())
+                break
+        if (not existance):
+            raise RuntimeError("Ошибка: переменная " + self.right_char + " не была объявлена ранее")
+            
+    left_char = None
+    right_char = None
 
 # Карточка для объявления переменной (char a;)
 class Declaration_card:
@@ -65,7 +97,7 @@ class Init_declaration_card:
         char_case.append(new_var)
 
     def view(self):
-        return 'char ' + str(self.name) + ' = ' + str(self.value) + ';'
+        return 'char ' + str(self.name) + ' = \'' + str(self.value) + '\';'
 
     name = None
     value = None
