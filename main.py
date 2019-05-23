@@ -1,26 +1,17 @@
-from char import*
-from pointer_char import*
-# В cards лежат два массива char_case и pointer__char_case
-# Они хранят состояние всех переменных в любой момент времени
 from cards import*
-# import randomizer
+from randomizer import generate_draft
+from pandas import DataFrame
 
-a = Char()
-a.set_name('a')
-a.set_value('b')
+HAND_SIZE = 8
+WIN_BY = 'лещ'
 
-b = Pointer_Char()
-b.set_name('b')
-b.set_reference('a')
+data = DataFrame()
+hand = (generate_draft(HAND_SIZE, data, WIN_BY))[1]
 
-char_case.append(a)
-
-pointer_char_case.append(b)
-
-print(char_case)
-
-print(pointer_char_case)
- 
-# array = randomize()
-# for card in array:
-#     card.action()
+for card in hand:
+    print(card.view())
+try:
+    for card in hand:
+        card.action()
+except RuntimeError as err:
+    print(err)
