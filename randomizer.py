@@ -93,7 +93,7 @@ def create_card(vars_data, word):
 
         word_symbol = word[randint(0, len(word) - 1)]
         # Шансы соотвественно 30%, 30%, 25% и 15%
-        card_choice = {'init': 30 'declaration': 30, 'i+d': 25, 'value-value': 15}
+        card_choice = {'init': 25, 'declaration': 25, 'i+d': 20, 'value-value': 15, 'putchar': 15}
         if select_type(card_choice) == 'init':
             Card = Init_card(char_name=var_name, char_value=word_symbol)
 
@@ -120,6 +120,11 @@ def create_card(vars_data, word):
             if (vars_data.loc[second_var, 'Value'] is not None):
                 vars_data.loc[var_name, 'Value'] = vars_data.loc[second_var, 'Value']
 
+        elif select_type(card_choice) == 'putchar':
+            Card = Putchar_card(char_name=var_name)
+
+            vars_data.loc[var_name, 'Putchar'] = True
+            
     return vars_data, Сard
 
 
