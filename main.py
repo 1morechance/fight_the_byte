@@ -1,3 +1,4 @@
+from randomizer import *
 import sys
 from PyQt5 import QtWidgets, QtCore, QtGui
 import main_menu
@@ -36,197 +37,90 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
         self.setupUi(self)
         self.Back_to_main_menu_button.clicked.connect(self.Comeback)
         self.Next_turn_button.clicked.connect(self.Next_turn)
-        self.Refresh_button.clicked.connect(self.Refresh)
-        # Функции при нажатии на карту
-        self.First_card.clicked.connect(self.First_card_add)
-        self.Second_card.clicked.connect(self.Second_card_add)
-        self.Third_card.clicked.connect(self.Third_card_add)
-        self.Fourth_card.clicked.connect(self.Fourth_card_add)
-        self.Fith_card.clicked.connect(self.Fith_card_add)
-        self.Sixth_card.clicked.connect(self.Sixth_card_add)
-        self.Seventh_card.clicked.connect(self.Seventh_card_add)
-        self.Eith_card.clicked.connect(self.Eith_card_add)
+        self.Refresh_button.clicked.connect(self.Card_generate)
         
-        global First_card_text
-        global Second_card_text
-        global Third_card_text
-        global Fourth_card_text
-        global Fith_card_text
-        global Sixth_card_text
-        global Seventh_card_text
-        global Eith_card_text
+        # Функции при нажатии на карту
+        self.Card1.clicked.connect(self.Card1_add)
+
+        # Переменные и карточки
+        self.data = pd.DataFrame()  # Информация о переменных (для невменяемых)
+        self.cards_array = []  # Массив карточек 
+        self.num = 8  # Количество карточек
+            
+    def Refresh(self):  # Получение 8 новых типов карточек (новая партия) 
+        self.data, self.cards_array = generate_draft(self.num, self.data, "dick")
+
+        self.data_card_text = []
+
+        for i in range(len(self.cards_array)):
+            self.data_card_text.append(self.cards_array[i].view())
+
+        print(self.data_card_text)
+        print('\n\n')
+        return self.data_card_text
+
+    def Card_generate(self):
+        self.types_array = []  # Массив виджетов (карт)
+        global Card_text0
+        global Card_text1
+        global Card_text2
+        global Card_text3
+        global Card_text4
+        global Card_text5
+        global Card_text6
+        global Card_text7
         global First_player_label_text
         global Second_player_label_text
-        global Turn
 
-        Turn = 1
-        First_player_label_text = ""
-        Second_player_label_text = ""
-        First_card_text = "putchar(a);"
-        self.First_card.setText(First_card_text)
-        Second_card_text = "char a;"
-        self.Second_card.setText(Second_card_text)
-        Third_card_text = "a = 'k';"
-        self.Third_card.setText(Third_card_text)
-        Fourth_card_text = "putchar(b);"
-        self.Fourth_card.setText(Fourth_card_text)
-        Fith_card_text = "putchar(c);"
-        self.Fith_card.setText(Fith_card_text)
-        Sixth_card_text = "char c;"
-        self.Sixth_card.setText(Sixth_card_text)
-        Seventh_card_text = "char b;"
-        self.Seventh_card.setText(Seventh_card_text)
-        Eith_card_text = "b = 'o';"
-        self.Eith_card.setText(Eith_card_text)     
-            
-    def Refresh(self):
-        print("Keep working!")
+        First_player_label_text = ''
+        Second_player_label_text = ''
+        self.First_player_label.setText(First_player_label_text)
+        self.Second_player_label.setText(First_player_label_text)
+        
+        self.data_card_text = self.Refresh()
+
+        Card_text0 = self.data_card_text[0]
+        self.Card0.setText(Card_text0)
+
+        Card_text1 = self.data_card_text[1]
+        self.Card1.setText(Card_text1)
+
+        Card_text2 = self.data_card_text[2]
+        self.Card2.setText(Card_text2)
+
+        Card_text3 = self.data_card_text[3]
+        self.Card3.setText(Card_text3)
+
+        Card_text4 = self.data_card_text[4]
+        self.Card4.setText(Card_text4)
+
+        Card_text5 = self.data_card_text[5]
+        self.Card5.setText(Card_text5)
+
+        Card_text6 = self.data_card_text[6]
+        self.Card6.setText(Card_text6)
+
+        Card_text7 = self.data_card_text[7]
+        self.Card7.setText(Card_text7)
 
     def Next_turn(self):
         global Turn
         
         Turn += 1
-
-    def First_card_add(self):
-        global First_card_text
+        
+    def Card1_add(self):
+        global Card1_text
         global First_player_label_text
         global Second_player_label_text
-        global Turn
-        
-        if Turn == 1 or Turn == 3:
-            First_player_label_text += First_card_text + "\n"         
-            self.First_player_label.setText(First_player_label_text)
-            First_card_text = ""
-            self.First_card.setText(First_card_text)
-        elif Turn == 2 or Turn == 4:
-            Second_player_label_text += First_card_text + "\n"         
-            self.Second_player_label.setText(Second_player_label_text)
-            First_card_text = ""
-            self.First_card.setText(First_card_text)
 
-    def Second_card_add(self):
-        global Second_card_text
-        global First_player_label_text
-        global Second_player_label_text
-        global Turn
-        
-        if Turn == 1 or Turn == 3:
-            First_player_label_text += Second_card_text + "\n"         
-            self.First_player_label.setText(First_player_label_text)
-            Second_card_text = ""
-            self.Second_card.setText(Second_card_text)
-        elif Turn == 2 or Turn == 4:
-            Second_player_label_text += Second_card_text + "\n"         
-            self.Second_player_label.setText(Second_player_label_text)
-            Second_card_text = ""
-            self.Second_card.setText(Second_card_text)
-
-    def Third_card_add(self):
-        global Third_card_text
-        global First_player_label_text
-        global Second_player_label_text
-        global Turn
-        
-        if Turn == 1 or Turn == 3:
-            First_player_label_text += Third_card_text + "\n"         
-            self.First_player_label.setText(First_player_label_text)
-            Third_card_text = ""
-            self.Third_card.setText(Third_card_text)
-        elif Turn == 2 or Turn == 4:
-            Second_player_label_text += Third_card_text + "\n"         
-            self.Second_player_label.setText(Second_player_label_text)
-            Third_card_text = ""
-            self.Third_card.setText(Third_card_text)
-
-    def Fourth_card_add(self):
-        global Fourth_card_text
-        global First_player_label_text
-        global Second_player_label_text
-        global Turn
-        
-        if Turn == 1 or Turn == 3:
-            First_player_label_text += Fourth_card_text + "\n"         
-            self.First_player_label.setText(First_player_label_text)
-            Fourth_card_text = ""
-            self.Fourth_card.setText(Fourth_card_text)
-        elif Turn == 2 or Turn == 4:
-            Second_player_label_text += Fourth_card_text + "\n"         
-            self.Second_player_label.setText(Second_player_label_text)
-            Fourth_card_text = ""
-            self.Fourth_card.setText(Fourth_card_text)
-
-    def Fith_card_add(self):
-        global Fith_card_text
-        global First_player_label_text
-        global Second_player_label_text
-        global Turn
-        
-        if Turn == 1 or Turn == 3:
-            First_player_label_text += Fith_card_text + "\n"         
-            self.First_player_label.setText(First_player_label_text)
-            Fith_card_text = ""
-            self.Fith_card.setText(Fith_card_text)
-        elif Turn == 2 or Turn == 4:
-            Second_player_label_text += Fith_card_text + "\n"         
-            self.Second_player_label.setText(Second_player_label_text)
-            Fith_card_text = ""
-            self.Fith_card.setText(Fith_card_text)
-
-    def Sixth_card_add(self):
-        global Sixth_card_text
-        global First_player_label_text
-        global Second_player_label_text
-        global Turn
-        
-        if Turn == 1 or Turn == 3:
-            First_player_label_text += Sixth_card_text + "\n"         
-            self.First_player_label.setText(First_player_label_text)
-            Sixth_card_text = ""
-            self.Sixth_card.setText(Sixth_card_text)
-        elif Turn == 2 or Turn == 4:
-            Second_player_label_text += Sixth_card_text + "\n"         
-            self.Second_player_label.setText(Second_player_label_text)
-            Sixth_card_text = ""
-            self.Sixth_card.setText(Sixth_card_text)
-
-    def Seventh_card_add(self):
-        global Seventh_card_text
-        global First_player_label_text
-        global Second_player_label_text
-        global Turn
-        
-        if Turn == 1 or Turn == 3:
-            First_player_label_text += Seventh_card_text + "\n"         
-            self.First_player_label.setText(First_player_label_text)
-            Seventh_card_text = ""
-            self.Seventh_card.setText(Seventh_card_text)
-        elif Turn == 2 or Turn == 4:
-            Second_player_label_text += Seventh_card_text + "\n"         
-            self.Second_player_label.setText(Second_player_label_text)
-            Seventh_card_text = ""
-            self.Seventh_card.setText(Seventh_card_text)
-
-    def Eith_card_add(self):
-        global Eith_card_text
-        global First_player_label_text
-        global Second_player_label_text
-        global Turn
-        
-        if Turn == 1 or Turn == 3:
-            First_player_label_text += Eith_card_text + "\n"         
-            self.First_player_label.setText(First_player_label_text)
-            Eith_card_text = ""
-            self.Eith_card.setText(Eith_card_text)
-        elif Turn == 2 or Turn == 4:
-            Second_player_label_text += Eith_card_text + "\n"         
-            self.Second_player_label.setText(Second_player_label_text)
-            Eith_card_text = ""
-            self.Eith_card.setText(Eith_card_text)
+        First_player_label_text += Card1_text + "\n"         
+        self.First_player_label.setText(First_player_label_text)
+        Card1_text = ""
+        self.Card1.setText(Card_text)
                   
     def Comeback(self):
         self.hide()
         
-# Описание окна настроек, которое ни на что не влияет потому что никто не удосужился заняться звуком)
 class Settings_Window(QtWidgets.QMainWindow, settings.Ui_MainWindow):
     def __init__(self, parent=None):
         super().__init__()
