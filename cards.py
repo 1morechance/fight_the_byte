@@ -17,7 +17,7 @@ class Init_card:
         is_exist = False
         for var in char_case:
             if var.get_name() == self.name:
-                char_variable.set_value(self.value)
+                var.set_value(self.value)
                 is_exist = True
                 break
         if (not is_exist):
