@@ -1,5 +1,7 @@
 char_case = []
 pointer_char_case = []
+output_string = ""
+
 # Массивы, хранящие все созданные переменные(объекты классов Char и Pointer_char)
 # Они используются только эмулятором и, если надо, рандомайзером
 
@@ -256,7 +258,7 @@ class Init_p_card:
 
 # Карточка putchar(char a);
 class Putchar_card:
-    global char_case
+    global char_case, output_string
 
     def __init__(self, char_name):
         self.name = char_name
@@ -267,8 +269,7 @@ class Putchar_card:
             if var.get_name() == self.name:
                 is_exist = True
                 if var.get_value() != None:
-                    # тут вывод в GUI вместо консоли
-                    print(var.get_value())
+                    output_string.append(var.get_value())
                 else:
                     raise RuntimeError("Ошибка: " + self.name + " не была инициализирована ранее")
         if (not is_exist):
@@ -317,7 +318,7 @@ class Putchar_p_card:
                                + self.name + " не была инициализирована")
         else:
             # Connect with GUI метод возвращает значение переменной на которую указывает name
-            print(self.output_value(p_object))
+            output_string.append(self.output_value(p_object))
     
     def view(self):
         return 'putchar(*' + str(self.name) + ');'
