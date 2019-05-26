@@ -26,7 +26,7 @@ def generate_vars(m):
         names_list.append(var)
 
     vars_data = pd.DataFrame({'Type': [None for i in range(m)],       # Var OR Pointer
-                              'Init': [False for i in range(m)],      # True OR False
+                              'Declaration': [False for i in range(m)],      # True OR False
                               'Value': [None for i in range(m)],      # <Value> OR None
                               'Putchar': [False for i in range(m)]},  # True OR False
                              index=names_list)
@@ -104,12 +104,12 @@ def create_card(vars_data, word):
         elif select_type(card_choice) == 'declaration':
             Card = Declaration_card(char_name=var_name)
 
-            vars_data.loc[var_name, 'Init'] = True
+            vars_data.loc[var_name, 'Declaration'] = True
 
         elif select_type(card_choice) == 'i+d':
             Card = Init_declaration_card(char_name=var_name, char_value=word_symbol)
 
-            vars_data.loc[var_name, 'Init'] = True
+            vars_data.loc[var_name, 'Declaration'] = True
             vars_data.loc[var_name, 'Value'] = word_symbol
 
         elif select_type(card_choice) == 'value-value':
@@ -134,7 +134,7 @@ def create_card(vars_data, word):
             second_var = vars_data.index[index_add]
             Card = Init_card_another_var(left_name=var_name, right_name=second_var)
 
-            vars_data.loc[var_name, 'Init'] = True
+            vars_data.loc[var_name, 'Declaration'] = True
             if vars_data.loc[second_var, 'Value'] is not None:
                 vars_data.loc[var_name, 'Value'] = vars_data.loc[second_var, 'Value']
 
@@ -170,7 +170,7 @@ def create_random_card(vars_data, word):
 
         if vars_data.loc[var_name, 'Type'] is None:
             vars_data.loc[var_name, 'Type'] = 'VAR'
-        vars_data.loc[var_name, 'Init'] = True
+        vars_data.loc[var_name, 'Declaration'] = True
 
     if seed == 2:
         word_symbol = word[randint(0, len(word) - 1)]
@@ -178,7 +178,7 @@ def create_random_card(vars_data, word):
 
         if vars_data.loc[var_name, 'Type'] is None:
             vars_data.loc[var_name, 'Type'] = 'VAR'
-        vars_data.loc[var_name, 'Init'] = True
+        vars_data.loc[var_name, 'Declaration'] = True
         vars_data.loc[var_name, 'Value'] = word_symbol
 
     if seed == 3:
@@ -210,7 +210,7 @@ def create_random_card(vars_data, word):
 
         if vars_data.loc[var_name, 'Type'] is None:
             vars_data.loc[var_name, 'Type'] = 'VAR'
-        vars_data.loc[var_name, 'Init'] = True
+        vars_data.loc[var_name, 'Declaration'] = True
         if vars_data.loc[second_var, 'Value'] is not None:
             vars_data.loc[var_name, 'Value'] = vars_data.loc[second_var, 'Value']
 
@@ -219,11 +219,10 @@ def create_random_card(vars_data, word):
     # if seed == :
     #         Card = Init_by_pointer(char_name=var_name)
 
-
-    # if var['Init'] && has_value(var) && var['Putchar']:
+    # if var['Declaration'] && has_value(var) && var['Putchar']:
     #     vars_data, card = create_random_card(vars_data, word)
     # else:
-    #     if not var['Init']:
+    #     if not var['Declaration']:
     #         card =
     #
     #     elif not has_value(var):
