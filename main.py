@@ -1,10 +1,11 @@
-from randomizer import *
+from randomizer1 import *
 import sys
 from PyQt5 import QtWidgets, QtCore, QtGui
 import main_menu
 import game_process_menu
 import settings
 import rules_menu
+from interpret import interpretation
 
 # В этом классе мы описываем параметры и функции кнопок главного меню
 class Main_Window(QtWidgets.QMainWindow, main_menu.Ui_MainWindow):
@@ -37,7 +38,7 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
         self.setupUi(self)
         self.Back_to_main_menu_button.clicked.connect(self.Comeback)
         self.Next_turn_button.clicked.connect(self.Next_turn)
-        self.Refresh_button.clicked.connect(self.Cards_generator)
+        self.Refresh_button.clicked.connect(self.Cards_generate)
         
         # Функции при нажатии на карту
         self.Card0.clicked.connect(self.Card_0_add)
@@ -68,14 +69,16 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
 
         self.First_player_stack = []
         self.Second_player_stack = []
+        self.word = "fook"
+        self.winner = None
 
         self.data = pd.DataFrame()  # Информация о переменных (для невменяемых)
         self.cards_array = []  # Массив карточек 
         self.num = 8  # Количество карточек
             
-    def Cards_generator(self):  # Получение 8 новых типов карточек (новая партия)
+    def Cards_generate(self):  # Получение 8 новых типов карточек (новая партия)
         
-        self.data, self.cards_array = generate_draft(self.num, self.data, "dick")
+        self.data, self.cards_array = generate_draft(self.num, self.data, self.word)
 
         self.data_card = []
         self.data_card_text = []
@@ -98,6 +101,10 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
 
     def Next_turn(self):
         self.Turn += 1
+        if (self.Turn % 2 == 0):
+            print(self.Turn)
+            if (interpretation(self.First_player_stack, self.Second_player_stack, self.word, self.winner)):
+                printf("Player " + str(self.winner) + " победил")
         
     def Card_0_add(self):
         if (self.Turn % 2 == 0):
