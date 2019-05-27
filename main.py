@@ -5,6 +5,7 @@ import main_menu
 import game_process_menu
 import settings
 import rules_menu
+import Pre_game_menu
 from cards import clean
 from interpret import interpretation
 
@@ -18,7 +19,7 @@ class Main_Window(QtWidgets.QMainWindow, main_menu.Ui_MainWindow):
         self.Play_button.clicked.connect(self.Game)
         self.Settings_button.clicked.connect(self.Settings)
         self.Rules_button.clicked.connect(self.Rules)
-        self.dialog_game_process = Play_Window(self)
+        self.dialog_game_process = Pre_game_Window(self)
         self.dialog_settings = Settings_Window(self)
         self.dialog_rules = Rules_Window(self)
 
@@ -31,6 +32,20 @@ class Main_Window(QtWidgets.QMainWindow, main_menu.Ui_MainWindow):
 
     def Rules(self):
         self.dialog_rules.show()
+
+class Pre_game_Window(QtWidgets.QMainWindow, Pre_game_menu.Ui_MainWindow):
+    def __init__(self, parent=None):
+        super().__init__()
+        self.setupUi(self)
+        self.Back_to_main_menu_button.clicked.connect(self.Comeback)
+        self.Play_the_game_button.clicked.connect(self.Game)
+        self.dialog_game_process = Play_Window(self)
+ 
+    def Game(self):
+        self.dialog_game_process.show()
+ 
+    def Comeback(self):
+        self.hide()
         
 # Описаниее окна игрового процесса,здесь есть кнопка Next_turn_button, ну собственно здесь начинается работа девелоперов
 class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
