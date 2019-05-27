@@ -1,15 +1,14 @@
-# -*- coding: utf-8 -*-
+'''!@brief Спинной мозг проекта
 
-# Form implementation generated from reading ui file 'desktop/work/develop/iu7-bachelors-2022-practice-2019-hungry-developers-develop/game_process_menu.ui'
-#
-# Created by: PyQt5 UI code generator 5.12.1
-#
-# WARNING! All changes made in this file will be lost!
+'''
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_MainWindow(object):
+    '''!@brief Выполняет основное управление в интерфейсе
+
+    '''
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1440, 900)
