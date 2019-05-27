@@ -1,8 +1,8 @@
-'''
+'''!@brief сердце программы
 Randomizer - генератор рандомных карточек
-Контролируемый рандом ("подкрученый")
+Контролируемый рандом 
 
-Генерирует N карточек
+Генерирует 8 карточек
 '''
 
 from random import randint, uniform
@@ -11,10 +11,18 @@ import pandas as pd
 from cards import *
 
 
-# Функция генерирует имена переменных на первом драфте
-#
-#   Имя переменной - случайная буква из simple_names
+
 def generate_vars(m):
+    '''!@brief Генерация карточек
+        @details Функция генерирует имена переменных на первом драфте.
+        Имя переменной - случайная буква из simple_names
+        @params simple_names - буквы для имен карточек
+        @params length - количество букв
+        @params names_list - массив сгенерированных карточек
+        @params[out] vars_data - DataFrame
+        @params var - имя текущей созданной карточки
+
+    '''
     simple_names = 'qwertyuiopasdfghjklzxvbnm'
     length = len(simple_names) - 1
 
@@ -42,11 +50,17 @@ def generate_vars(m):
 #         return True
 
 
-# Функция выбора ("взвешенного" - неравновероятных событий)
-# 1) На основании данных DataFrame или абсолютно случайно
-# 2) Будет ли это переменная или указатель
-# 3) Будет ли это просто init AND/OR declaration
+
+
 def select_type(choices):
+    '''!@brief Функция выбора ("взвешенного" - неравновероятных событий)
+
+        1) На основании данных DataFrame или абсолютно случайно
+        2) Будет ли это переменная или указатель
+        3) Будет ли это просто init AND/OR declaration
+        @param[out] key - ключ к выбору типа
+
+    '''
     amount = sum(choices.values())
     seed = uniform(0, amount)
     current = 0
@@ -55,8 +69,11 @@ def select_type(choices):
         if current >= seed:
             return key
 
- # Функция подсчета количества VAR-ов
+
 def count_vars(vars_data):
+    '''!@brief Фукнция подсчета количества VAR-ов
+        @param[out] counter - счетчик
+    '''
     counter = 0
     for i in range(len(vars_data.index)):
         if vars_data.iloc[i, 0] == 'VAR':
@@ -64,27 +81,18 @@ def count_vars(vars_data):
     return counter
 
 
-# TODO: создать генерацию указателей
-# Функция "хитрой" генерации карточки
-# (на основании данных DataFrame)
+ 
 def create_card(vars_data, word):
+    '''!@brief Функция "хитрой" генерации карточки (на основании данных DataFrame)
+        @param index_main - рандомное число
+        @param var_name - имя созданной карточки
+        @param[out] vars_data, Card - Возвращает сгенерированную карточку 
+    '''
     index_main = randint(0, len(vars_data.index) - 1)
     var_name = vars_data.index[index_main]
 
     if count_vars(vars_data) >= 2*len(word) - 2:  # Переменных больше МИНИМУМА (услвоного)
         vars_data, Card = create_random_card(vars_data, word)  # temporary
-        # if vars_data.loc[var_name, 'Type'] is None:
-        #     which_type = {'var': 40, 'pointer': 60}  # 40% и 60% соответсвенно
-        #     if select_type(which_type) == 'var':
-        #         vars_data.loc[var_name, 'Type'] = 'VAR'
-        #     else:
-        #         vars_data.loc[var_name, 'Type'] = 'POINTER'
-        # else:
-        # # выбор для уже явной карточки && меньше, чем длина слова
-        #     if vars_data.loc[var_name, 'Type'] == 'VAR':
-        #         pass
-        #     elif vars_data.loc[var_name, 'Type'] == 'POINTER':
-        #         pass
     else:
     # Если переменных достаточно мало (именно VAR)
     # НЕ будет создаваться указателей, пока сюда заходит программа
@@ -128,13 +136,16 @@ def create_card(vars_data, word):
     return vars_data, Сard
 
 
-# Генерация очередной карточки (абсолютно случайно)
-# TODO: реализовать генерацию указателей
+
+
 def create_random_card(vars_data, word):
+    '''!@brief Генерация очередной карточки (абсолютно случайно)
+        @param[in] vars_data, word - массив сгенерированных карточек и слово
+        @param[out] vars_data, Card - возвращает сгенерированную карточку
+    '''
     index_main = randint(0, len(vars_data.index) - 1)
     var_name = vars_data.index[index_main]
 
-    # Так как пока без указателей
     while vars_data.loc[var_name, 'Type'] == 'POINTER':
         index_main = randint(0, len(vars_data.index) - 1)
         var_name = vars_data.index[index_main]
@@ -189,29 +200,16 @@ def create_random_card(vars_data, word):
 
         vars_data.loc[var_name, 'Putchar'] = True
 
-    # Init_by_pointer нельзя просто случайно генерировать
-    # (нужно понимать какие у нас указатели))
-    # if seed == :
-    #         Card = Init_by_pointer(char_name=var_name)
-
-
-    # if var['Init'] && has_value(var) && var['Putchar']:
-    #     vars_data, card = create_random_card(vars_data, word)
-    # else:
-    #     if not var['Init']:
-    #         card =
-    #
-    #     elif not has_value(var):
-    #         card =
-    #
-    #     elif not var['Putchar']:
-    #         card =
 
     return vars_data, Card
 
 
-# Функция генерации списка карточек на драфте
+
 def analyse_data(vars_data, word, n):
+    '''!@brief Функция генерации списка карточек на драфте
+        @param[in] vars_data, word - слово, которое надо распечатать игроку
+        @param[out] vars_data, cards_array - массив сгенерированных карточек
+    '''
     cards_array = []
     type_of_generation = {'normal': 90, 'random': 10}  # 90% и 10% соотвественно
     for i in range(n):
@@ -239,17 +237,20 @@ def analyse_data(vars_data, word, n):
 #     return seed
 
 
-# Функция, генерирущая очередной драфт карточек (вызыввается в main.py)
-#
-#   n -- Количество карточек на драфте
-#   vars_data -- DataFrame (pandas) с информацией переменных и указателях
-#   word -- слово, которое по заданию надо распечатать игроку
+
+
+
 def generate_draft(n, vars_data, word):
+    '''!@brief Функция, генерирущая очередной драфт карточек (вызыввается в main.py)
+        @param[in] n -- Количество карточек на драфте
+        @param[in] vars_data -- DataFrame (pandas) с информацией переменных и указателях
+        @param[in] word -- слово, которое по заданию надо распечатать игроку
+        @param[out] output_tuple - кортеж с измененнными DataFrame & список карточек (в таком порядке!)
+    '''
     if len(vars_data.index) == 0:
         # Число от балды, возможно стоит придумать, как его вычислять
         vars_amount = 2*len(word) + 2
         vars_data = generate_vars(vars_amount)
 
-    # кортеж с измененнными DataFrame & список карточек (в таком порядке!)
     output_tuple = analyse_data(vars_data, word, n)
     return output_tuple

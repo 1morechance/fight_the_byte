@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['randomizer',['randomizer',['../namespacerandomizer.html',1,'']]],
-  ['randomizer1',['randomizer1',['../namespacerandomizer1.html',1,'']]],
-  ['retranslateui',['retranslateUi',['../classmain__menu_1_1_ui___main_window.html#afc5b3b59947cb086923048a8fda86243',1,'main_menu::Ui_MainWindow']]],
-  ['rules_5fwindow',['Rules_Window',['../classmain_1_1_rules___window.html',1,'main']]]
+  ['play_5fwindow',['Play_Window',['../classmain_1_1_play___window.html',1,'main']]],
+  ['pointer_5fchar',['Pointer_Char',['../classpointer__char_1_1_pointer___char.html',1,'pointer_char.Pointer_Char'],['../namespacepointer__char.html',1,'pointer_char']]],
+  ['pointer_5fto_5fpointer',['Pointer_to_pointer',['../classcards_1_1_pointer__to__pointer.html',1,'cards']]],
+  ['pre_5fgame_5fwindow',['Pre_game_Window',['../classmain_1_1_pre__game___window.html',1,'main']]],
+  ['putchar_5fcard',['Putchar_card',['../classcards_1_1_putchar__card.html',1,'cards']]],
+  ['putchar_5fp_5fcard',['Putchar_p_card',['../classcards_1_1_putchar__p__card.html',1,'cards']]]
 ];

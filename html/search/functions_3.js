@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['not_5fnone',['not_none',['../classcards_1_1_putchar__p__card.html#a5243088f07d00a7cafabdc2240ca7f23',1,'cards::Putchar_p_card']]]
+  ['interpretation',['interpretation',['../namespaceinterpret.html#a8b884e5558d7091eb3365147074d5c1a',1,'interpret']]]
 ];
