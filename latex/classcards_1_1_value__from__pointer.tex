@@ -1,0 +1,85 @@
+\hypertarget{classcards_1_1_value__from__pointer}{}\section{Класс cards.\+Value\+\_\+from\+\_\+pointer}
+\label{classcards_1_1_value__from__pointer}\index{cards.Value\_from\_pointer@{cards.Value\_from\_pointer}}
+
+
+Класс для присваивания значения указателя переменной  
+
+
+\subsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcards_1_1_value__from__pointer_aa82fbee9d94fda2e12bbbb9194a5d273}\label{classcards_1_1_value__from__pointer_aa82fbee9d94fda2e12bbbb9194a5d273}} 
+def {\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, char\+\_\+name, pointer\+\_\+name)
+\item 
+\mbox{\Hypertarget{classcards_1_1_value__from__pointer_a4a1a82bc14462aa705d9d3181a8c077c}\label{classcards_1_1_value__from__pointer_a4a1a82bc14462aa705d9d3181a8c077c}} 
+def \mbox{\hyperlink{classcards_1_1_value__from__pointer_a4a1a82bc14462aa705d9d3181a8c077c}{assign}} (self)
+\begin{DoxyCompactList}\small\item\em Функция присваивание значения указателя переменной \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcards_1_1_value__from__pointer_a354fa2bbe2fc840600bb5951bf6f41cf}\label{classcards_1_1_value__from__pointer_a354fa2bbe2fc840600bb5951bf6f41cf}} 
+def \mbox{\hyperlink{classcards_1_1_value__from__pointer_a354fa2bbe2fc840600bb5951bf6f41cf}{checkout}} (self)
+\begin{DoxyCompactList}\small\item\em Функция проверки инициализации указателя и переменной \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classcards_1_1_value__from__pointer_addb014665667632858e70bad8276c8a0}{action}} (self)
+\begin{DoxyCompactList}\small\item\em Функция выполнения инструкции карточки \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classcards_1_1_value__from__pointer_ab20c085652300a7b52408ed88c61acbc}{view}} (self)
+\begin{DoxyCompactList}\small\item\em Возвращает имя карточки \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Статические открытые данные}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcards_1_1_value__from__pointer_a2ceace80d6a7464688fc3640bc07865f}\label{classcards_1_1_value__from__pointer_a2ceace80d6a7464688fc3640bc07865f}} 
+{\bfseries pointer} = None
+\item 
+\mbox{\Hypertarget{classcards_1_1_value__from__pointer_a98f998363114352ba8e72a3741d001db}\label{classcards_1_1_value__from__pointer_a98f998363114352ba8e72a3741d001db}} 
+{\bfseries ref\+\_\+pointer} = None
+\item 
+\mbox{\Hypertarget{classcards_1_1_value__from__pointer_ae53a94b4be67d87a14d92e6bc8b2a951}\label{classcards_1_1_value__from__pointer_ae53a94b4be67d87a14d92e6bc8b2a951}} 
+{\bfseries name\+\_\+c} = None
+\item 
+\mbox{\Hypertarget{classcards_1_1_value__from__pointer_ac7e35a5cfd0d74d118b49b0f47503615}\label{classcards_1_1_value__from__pointer_ac7e35a5cfd0d74d118b49b0f47503615}} 
+{\bfseries name\+\_\+p} = None
+\end{DoxyCompactItemize}
+
+
+\subsection{Подробное описание}
+Класс для присваивания значения указателя переменной 
+
+
+\begin{DoxyParams}[1]{Аргументы}
+\mbox{\texttt{ in}}  & {\em pointer} & -\/ указатель \\
+\hline
+\mbox{\texttt{ in}}  & {\em ref\+\_\+pointer} & -\/ переменный указатель \\
+\hline
+\mbox{\texttt{ out}}  & {\em name\+\_\+c,name\+\_\+p} & -\/ имя переменной и указателя \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Методы}
+\mbox{\Hypertarget{classcards_1_1_value__from__pointer_addb014665667632858e70bad8276c8a0}\label{classcards_1_1_value__from__pointer_addb014665667632858e70bad8276c8a0}} 
+\index{cards.Value\_from\_pointer@{cards.Value\_from\_pointer}!action@{action}}
+\index{action@{action}!cards.Value\_from\_pointer@{cards.Value\_from\_pointer}}
+\subsubsection{\texorpdfstring{action()}{action()}}
+{\footnotesize\ttfamily def cards.\+Value\+\_\+from\+\_\+pointer.\+action (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Функция выполнения инструкции карточки 
+
+Совершает проверку кретин ли вы, если нет то присваивает значение указателя переменной 
+\begin{DoxyParams}[1]{Аргументы}
+\mbox{\texttt{ in}}  & {\em is\+\_\+exist\+\_\+c,is\+\_\+exist\+\_\+p} & -\/ boolean переменные, которые возвращают True, если переменная или уазатель существуют \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classcards_1_1_value__from__pointer_ab20c085652300a7b52408ed88c61acbc}\label{classcards_1_1_value__from__pointer_ab20c085652300a7b52408ed88c61acbc}} 
+\index{cards.Value\_from\_pointer@{cards.Value\_from\_pointer}!view@{view}}
+\index{view@{view}!cards.Value\_from\_pointer@{cards.Value\_from\_pointer}}
+\subsubsection{\texorpdfstring{view()}{view()}}
+{\footnotesize\ttfamily def cards.\+Value\+\_\+from\+\_\+pointer.\+view (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Возвращает имя карточки 
+
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+cards.\+py\end{DoxyCompactItemize}
