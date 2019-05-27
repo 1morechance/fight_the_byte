@@ -98,8 +98,10 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
 
         self.First_player_stack = []
         self.Second_player_stack = []
-
-        self.Current_word.setText('')
+        
+        self.word = "..."
+    
+        self.Current_word.setText(self.word)
         self.First_player_nickname.setText('')
         self.Second_player_nickname.setText('')
         
