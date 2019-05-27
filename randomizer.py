@@ -141,6 +141,7 @@ def create_pointer_card(vars_data, var_name, p_name, index_p):
         if vars_data.loc[var_name, 'Type'] is None:
             vars_data.loc[var_name, 'Type'] = 'VAR'
         if vars_data.loc[p_name, 'Value'] is not None:
+            vars_data.loc[var_name, 'Value'] = vars_data.loc[p_name, 'Value']
 
     elif choice == 'value-value':
         index_add = randint(0, len(vars_data.index) - 1)
