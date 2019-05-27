@@ -1,16 +1,18 @@
-# -*- coding: utf-8 -*-
+'''!@brief Файл с главным меню игры
 
-# Form implementation generated from reading ui file 'Desktop/Work/GUI/main_menu.ui'
-#
-# Created by: PyQt5 UI code generator 5.12.1
-#
-# WARNING! All changes made in this file will be lost!
+'''
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_MainWindow(object):
+    '''!@brief Класс главного окна игры, содержащий все необходимые виджеты
+        
+    '''
     def setupUi(self, MainWindow):
+        '''!@brief Фукнция, расставляющая виджеты по экрану
+
+        '''
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1440, 785)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -64,6 +66,9 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
+        '''!@biref ретранслирует интерфейс
+
+        '''
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
 
