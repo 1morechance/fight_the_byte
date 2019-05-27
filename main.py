@@ -1,4 +1,4 @@
-from randomizer import *
+from randomizer import*
 import sys
 from PyQt5 import QtWidgets, QtCore, QtGui
 import main_menu
