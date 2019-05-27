@@ -38,10 +38,9 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.Back_to_main_menu_button.clicked.connect(self.Comeback)
-        self.Next_turn_button.clicked.connect(self.Next_turn)
         self.Refresh_button.clicked.connect(self.Cards_generate)
         
-        # Функции при нажатии на карту
+        # Выбор карточки:
         self.Card0.clicked.connect(self.Card_0_add)
         self.Card1.clicked.connect(self.Card_1_add)
         self.Card2.clicked.connect(self.Card_2_add)
@@ -87,9 +86,6 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
         for i in range(len(self.cards_array)):
             self.data_card.append(self.cards_array[i])
             self.data_card_text.append(self.cards_array[i].view())
-
-        print(self.data_card_text)
-        print('\n')
               
         self.Card0.setText(self.data_card_text[0])
         self.Card1.setText(self.data_card_text[1])
@@ -102,14 +98,15 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
 
     def Next_turn(self):
         self.Turn += 1
+        print(self.Turn)
         if (self.Turn % 2 == 0):
             clean()
-            print(self.Turn)
             self.winner = interpretation(self.First_player_stack, self.Second_player_stack, self.word)
             if (self.winner):
                 print("Player " + str(self.winner) + " победил")
         
     def Card_0_add(self):
+        self.Next_turn()
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[0] + "\n"
             self.First_player_stack.append(self.data_card[0])
@@ -122,6 +119,7 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
             self.Card0.setText('')
 
     def Card_1_add(self):
+        self.Next_turn()
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[1] + "\n"
             self.First_player_stack.append(self.data_card[1])
@@ -134,6 +132,7 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
             self.Card1.setText('')
 
     def Card_2_add(self):
+        self.Next_turn()
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[2] + "\n"
             self.First_player_stack.append(self.data_card[2])
@@ -146,6 +145,7 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
             self.Card2.setText('')
 
     def Card_3_add(self):
+        self.Next_turn()
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[3] + "\n"
             self.First_player_stack.append(self.data_card[3])
@@ -158,6 +158,7 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
             self.Card3.setText('')
 
     def Card_4_add(self):
+        self.Next_turn()
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[4] + "\n"
             self.First_player_stack.append(self.data_card[4])
@@ -170,6 +171,7 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
             self.Card4.setText('')
 
     def Card_5_add(self):
+        self.Next_turn()
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[5] + "\n"
             self.First_player_stack.append(self.data_card[5])
@@ -182,6 +184,7 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
             self.Card5.setText('')
 
     def Card_6_add(self):
+        self.Next_turn()
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[6] + "\n"
             self.First_player_stack.append(self.data_card[6])
@@ -194,6 +197,7 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
             self.Card6.setText('')
 
     def Card_7_add(self):
+        self.Next_turn()
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[7] + "\n"
             self.First_player_stack.append(self.data_card[7])

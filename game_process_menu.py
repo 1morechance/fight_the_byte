@@ -31,17 +31,15 @@ class Ui_MainWindow(object):
         self.Back_to_main_menu_button.setIconSize(QtCore.QSize(291, 81))
         self.Back_to_main_menu_button.setObjectName("Back_to_main_menu_button")
         self.Card0 = QtWidgets.QPushButton(self.centralwidget)
-        self.Card0.setGeometry(QtCore.QRect(560, 240, 321, 51))
+        self.Card0.setGeometry(QtCore.QRect(560, 220, 321, 51))  # placement
         font = QtGui.QFont()
         font.setPointSize(25)
         self.Card0.setFont(font)
         self.Card0.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.Card0.setText("")
-        self.Card0.setIconSize(QtCore.QSize(321, 51))
         self.Card0.setFlat(True)
         self.Card0.setObjectName("Card0")
         self.Card1 = QtWidgets.QPushButton(self.centralwidget)
-        self.Card1.setGeometry(QtCore.QRect(560, 300, 321, 51))
+        self.Card1.setGeometry(QtCore.QRect(560, 280, 321, 51))  # placement
         font = QtGui.QFont()
         font.setPointSize(25)
         self.Card1.setFont(font)
@@ -49,7 +47,7 @@ class Ui_MainWindow(object):
         self.Card1.setFlat(True)
         self.Card1.setObjectName("Card1")
         self.Card2 = QtWidgets.QPushButton(self.centralwidget)
-        self.Card2.setGeometry(QtCore.QRect(560, 360, 321, 51))
+        self.Card2.setGeometry(QtCore.QRect(560, 340, 321, 51))  # placement
         font = QtGui.QFont()
         font.setPointSize(25)
         self.Card2.setFont(font)
@@ -57,7 +55,7 @@ class Ui_MainWindow(object):
         self.Card2.setFlat(True)
         self.Card2.setObjectName("Card2")
         self.Card3 = QtWidgets.QPushButton(self.centralwidget)
-        self.Card3.setGeometry(QtCore.QRect(560, 420, 321, 51))
+        self.Card3.setGeometry(QtCore.QRect(560, 400, 321, 51))  # placement
         font = QtGui.QFont()
         font.setPointSize(25)
         self.Card3.setFont(font)
@@ -65,7 +63,7 @@ class Ui_MainWindow(object):
         self.Card3.setFlat(True)
         self.Card3.setObjectName("Card3")
         self.Card4 = QtWidgets.QPushButton(self.centralwidget)
-        self.Card4.setGeometry(QtCore.QRect(560, 480, 321, 51))
+        self.Card4.setGeometry(QtCore.QRect(560, 460, 321, 51))  # placement
         font = QtGui.QFont()
         font.setPointSize(25)
         self.Card4.setFont(font)
@@ -73,7 +71,7 @@ class Ui_MainWindow(object):
         self.Card4.setFlat(True)
         self.Card4.setObjectName("Card4")
         self.Card5 = QtWidgets.QPushButton(self.centralwidget)
-        self.Card5.setGeometry(QtCore.QRect(560, 540, 321, 51))
+        self.Card5.setGeometry(QtCore.QRect(560, 520, 321, 51))  # placement
         font = QtGui.QFont()
         font.setPointSize(25)
         self.Card5.setFont(font)
@@ -81,7 +79,7 @@ class Ui_MainWindow(object):
         self.Card5.setFlat(True)
         self.Card5.setObjectName("Card5")
         self.Card6 = QtWidgets.QPushButton(self.centralwidget)
-        self.Card6.setGeometry(QtCore.QRect(560, 600, 321, 51))
+        self.Card6.setGeometry(QtCore.QRect(560, 580, 321, 51))  # placement
         font = QtGui.QFont()
         font.setPointSize(25)
         self.Card6.setFont(font)
@@ -89,7 +87,7 @@ class Ui_MainWindow(object):
         self.Card6.setFlat(True)
         self.Card6.setObjectName("Card6")
         self.Card7 = QtWidgets.QPushButton(self.centralwidget)
-        self.Card7.setGeometry(QtCore.QRect(560, 660, 321, 51))
+        self.Card7.setGeometry(QtCore.QRect(560, 640, 321, 51))  # placement 
         font = QtGui.QFont()
         font.setPointSize(25)
         self.Card7.setFont(font)
