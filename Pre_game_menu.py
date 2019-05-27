@@ -1,10 +1,5 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'desktop/work/develop/iu7-bachelors-2022-practice-2019-hungry-developers-develop/Pre_game_menu.ui'
-#
-# Created by: PyQt5 UI code generator 5.12.1
-#
-# WARNING! All changes made in this file will be lost!
+'''!@brief Файл вызова окна с вводом никнеймов
+'''
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
