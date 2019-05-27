@@ -18,6 +18,14 @@ def clean():
     char_case = []
     pointer_char_case = []
 
+def get_output():
+    global output_string
+    return output_string
+
+def set_output(string):
+    global output_string
+    output_string = string
+
 # Массивы, хранящие все созданные переменные(объекты классов Char и Pointer_char)
 # Они используются только эмулятором и, если надо, рандомайзером
 
