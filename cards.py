@@ -2,6 +2,11 @@ char_case = []
 pointer_char_case = []
 output_string = ""
 
+def clean():
+    global char_case, pointer_char_case
+    char_case = []
+    pointer_char_case = []
+
 # Массивы, хранящие все созданные переменные(объекты классов Char и Pointer_char)
 # Они используются только эмулятором и, если надо, рандомайзером
 

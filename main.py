@@ -5,7 +5,7 @@ import main_menu
 import game_process_menu
 import settings
 import rules_menu
-from cards import char_case, pointer_char_case
+from cards import clean
 from interpret import interpretation
 
 # В этом классе мы описываем параметры и функции кнопок главного меню
@@ -103,8 +103,7 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
     def Next_turn(self):
         self.Turn += 1
         if (self.Turn % 2 == 0):
-            pointer_char_case = []
-            char_case = []
+            clean()
             print(self.Turn)
             self.winner = interpretation(self.First_player_stack, self.Second_player_stack, self.word)
             if (self.winner):
