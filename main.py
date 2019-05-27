@@ -9,6 +9,13 @@ import Pre_game_menu
 from cards import clean
 from interpret import interpretation
 
+global First_player_nickname
+First_player_nickname = ''
+global Second_player_nickname
+Second_player_nickname = ''
+global Word
+Word = ''
+
 # В этом классе мы описываем параметры и функции кнопок главного меню
 class Main_Window(QtWidgets.QMainWindow, main_menu.Ui_MainWindow):
     def __init__(self, parent=None):
@@ -22,7 +29,7 @@ class Main_Window(QtWidgets.QMainWindow, main_menu.Ui_MainWindow):
         self.dialog_game_process = Pre_game_Window(self)
         self.dialog_settings = Settings_Window(self)
         self.dialog_rules = Rules_Window(self)
-
+        
     #Функции, вызова новых окон в соответствии с каждой кнопкой
     def Game(self):
         self.dialog_game_process.show()
@@ -43,6 +50,13 @@ class Pre_game_Window(QtWidgets.QMainWindow, Pre_game_menu.Ui_MainWindow):
  
     def Game(self):
         self.dialog_game_process.show()
+
+        global First_player_nickname
+        First_player_nickname = self.First_player_nickname_text.toPlainText()
+        global Second_player_nickname
+        Second_player_nickname = self.Second_player_nickname_text.toPlainText()
+        global Word
+        Word = self.Current_word_text.toPlainText()
  
     def Comeback(self):
         self.hide()
@@ -86,10 +100,10 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
         self.Second_player_stack = []
         
         self.word = "FOOK"
-
+    
         self.Current_word.setText(self.word)
-        self.First_player_nickname.setText('CONOR')
-        self.Second_player_nickname.setText('KHABIB')
+        self.First_player_nickname.setText('')
+        self.Second_player_nickname.setText('')
         
         self.winner = 0
 
@@ -98,6 +112,14 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
         self.num = 8  # Количество карточек
             
     def Cards_generate(self):  # Получение 8 новых типов карточек (новая партия)
+
+        global First_player_nickname
+        global Second_player_nickname
+        global Word
+    
+        self.First_player_nickname.setText(First_player_nickname)
+        self.Second_player_nickname.setText(Second_player_nickname)
+        self.Current_word.setText(Word)
         
         self.data, self.cards_array = generate_draft(self.num, self.data, self.word)
 
