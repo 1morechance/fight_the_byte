@@ -1,4 +1,4 @@
-from randomizer1 import*
+from randomizer import *
 import sys
 from PyQt5 import QtWidgets, QtCore, QtGui
 import main_menu
@@ -66,6 +66,9 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
         self.Card6.setText('')
         self.Card7.setText('')
 
+        self.First_player_stack = []
+        self.Second_player_stack = []
+
         self.data = pd.DataFrame()  # Информация о переменных (для невменяемых)
         self.cards_array = []  # Массив карточек 
         self.num = 8  # Количество карточек
@@ -99,80 +102,96 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
     def Card_0_add(self):
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[0] + "\n"
+            self.First_player_stack.append(self.data_card[0])
             self.First_player_label.setText(self.First_player_label_text)
             self.Card0.setText('')
         if (self.Turn % 2 == 1):
             self.Second_player_label_text += self.data_card_text[0] + "\n"
+            self.Second_player_stack.append(self.data_card[0])
             self.Second_player_label.setText(self.Second_player_label_text)
             self.Card0.setText('')
 
     def Card_1_add(self):
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[1] + "\n"
+            self.First_player_stack.append(self.data_card[1])
             self.First_player_label.setText(self.First_player_label_text)
             self.Card1.setText('')
         if (self.Turn % 2 == 1):
             self.Second_player_label_text += self.data_card_text[1] + "\n"
+            self.Second_player_stack.append(self.data_card[1])
             self.Second_player_label.setText(self.Second_player_label_text)
             self.Card1.setText('')
 
     def Card_2_add(self):
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[2] + "\n"
-            self.First_player_label.setText(self.data_card_text[2] + "\n")
+            self.First_player_stack.append(self.data_card[2])
+            self.First_player_label.setText(self.First_player_label_text)
             self.Card2.setText('')
         if (self.Turn % 2 == 1):
             self.Second_player_label_text += self.data_card_text[2] + "\n"
+            self.Second_player_stack.append(self.data_card[2])
             self.Second_player_label.setText(self.Second_player_label_text)
             self.Card2.setText('')
 
     def Card_3_add(self):
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[3] + "\n"
+            self.First_player_stack.append(self.data_card[3])
             self.First_player_label.setText(self.First_player_label_text)
             self.Card3.setText('')
         if (self.Turn % 2 == 1):
             self.Second_player_label_text += self.data_card_text[3] + "\n"
+            self.Second_player_stack.append(self.data_card[3])
             self.Second_player_label.setText(self.Second_player_label_text)
             self.Card3.setText('')
 
     def Card_4_add(self):
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[4] + "\n"
+            self.First_player_stack.append(self.data_card[4])
             self.First_player_label.setText(self.First_player_label_text)
             self.Card4.setText('')
         if (self.Turn % 2 == 1):
             self.Second_player_label_text += self.data_card_text[4] + "\n"
+            self.Second_player_stack.append(self.data_card[4])
             self.Second_player_label.setText(self.Second_player_label_text)
             self.Card4.setText('')
 
     def Card_5_add(self):
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[5] + "\n"
+            self.First_player_stack.append(self.data_card[5])
             self.First_player_label.setText(self.First_player_label_text)
             self.Card5.setText('')
         if (self.Turn % 2 == 1):
             self.Second_player_label_text += self.data_card_text[5] + "\n"
+            self.Second_player_stack.append(self.data_card[5])
             self.Second_player_label.setText(self.Second_player_label_text)
             self.Card5.setText('')
 
     def Card_6_add(self):
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[6] + "\n"
+            self.First_player_stack.append(self.data_card[6])
             self.First_player_label.setText(self.First_player_label_text)
             self.Card6.setText('')
         if (self.Turn % 2 == 1):
             self.Second_player_label_text += self.data_card_text[6] + "\n"
+            self.Second_player_stack.append(self.data_card[6])
             self.Second_player_label.setText(self.Second_player_label_text)
             self.Card6.setText('')
 
     def Card_7_add(self):
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[7] + "\n"
+            self.First_player_stack.append(self.data_card[7])
             self.First_player_label.setText(self.First_player_label_text)
             self.Card7.setText('')
         if (self.Turn % 2 == 1):
             self.Second_player_label_text += self.data_card_text[7] + "\n"
+            self.Second_player_stack.append(self.data_card[7])
             self.Second_player_label.setText(self.Second_player_label_text)
             self.Card7.setText('')
                   
