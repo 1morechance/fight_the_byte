@@ -269,7 +269,7 @@ class Putchar_card:
             if var.get_name() == self.name:
                 is_exist = True
                 if var.get_value() != None:
-                    output_string.append(var.get_value())
+                    output_string += var.get_value()
                 else:
                     raise RuntimeError("Ошибка: " + self.name + " не была инициализирована ранее")
         if (not is_exist):
@@ -318,7 +318,7 @@ class Putchar_p_card:
                                + self.name + " не была инициализирована")
         else:
             # Connect with GUI метод возвращает значение переменной на которую указывает name
-            output_string.append(self.output_value(p_object))
+            output_string += self.output_value(p_object)
     
     def view(self):
         return 'putchar(*' + str(self.name) + ');'
