@@ -2,9 +2,6 @@
 
 '''
 
-
-
-
 from randomizer1 import*
 import sys
 from PyQt5 import QtWidgets, QtCore, QtGui
