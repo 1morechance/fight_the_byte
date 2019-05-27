@@ -1,10 +1,11 @@
-from randomizer1 import *
+from randomizer1 import*
 import sys
 from PyQt5 import QtWidgets, QtCore, QtGui
 import main_menu
 import game_process_menu
 import settings
 import rules_menu
+from cards import char_case, pointer_char_case
 from interpret import interpretation
 
 # В этом классе мы описываем параметры и функции кнопок главного меню
@@ -70,7 +71,7 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
         self.First_player_stack = []
         self.Second_player_stack = []
         self.word = "fook"
-        self.winner = None
+        self.winner = 0
 
         self.data = pd.DataFrame()  # Информация о переменных (для невменяемых)
         self.cards_array = []  # Массив карточек 
@@ -102,9 +103,12 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
     def Next_turn(self):
         self.Turn += 1
         if (self.Turn % 2 == 0):
+            pointer_char_case = []
+            char_case = []
             print(self.Turn)
-            if (interpretation(self.First_player_stack, self.Second_player_stack, self.word, self.winner)):
-                printf("Player " + str(self.winner) + " победил")
+            self.winner = interpretation(self.First_player_stack, self.Second_player_stack, self.word)
+            if (self.winner):
+                print("Player " + str(self.winner) + " победил")
         
     def Card_0_add(self):
         if (self.Turn % 2 == 0):

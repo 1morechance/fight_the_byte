@@ -9,3 +9,5 @@ def check_winner(word, current_state):
             return WIN
         i += 1
     return NO_WIN
+
+print(check_winner("fook", ""))
