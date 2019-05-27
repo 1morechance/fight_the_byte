@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['search',['search',['../classcards_1_1_value__to__value__p.html#a4913693a20f937a175a8668979a45700',1,'cards::Value_to_value_p']]]
+  ['output_5fvalue',['output_value',['../classcards_1_1_putchar__p__card.html#a8335744de904ecff2f37b17dfb3a89d5',1,'cards::Putchar_p_card']]]
 ];
