@@ -1,3 +1,10 @@
+'''!@brief Главный мозг программы, отсюда происходит управление всеми файлами
+
+'''
+
+
+
+
 from randomizer1 import*
 import sys
 from PyQt5 import QtWidgets, QtCore, QtGui
@@ -16,8 +23,10 @@ Second_player_nickname = ''
 global Word
 Word = ''
 
-# В этом классе мы описываем параметры и функции кнопок главного меню
+
 class Main_Window(QtWidgets.QMainWindow, main_menu.Ui_MainWindow):
+    '''!@brief Класс описания параметров и функций кнопок главного меню
+    '''
     def __init__(self, parent=None):
         super().__init__()
         self.setupUi(self)
@@ -32,15 +41,23 @@ class Main_Window(QtWidgets.QMainWindow, main_menu.Ui_MainWindow):
         
     #Функции, вызова новых окон в соответствии с каждой кнопкой
     def Game(self):
+        '''!@brief Функция вызова начала игры
+        '''
         self.dialog_game_process.show()
 
     def Settings(self):
+        '''!@brief Функция вызова настроек игры
+        '''
         self.dialog_settings.show()
 
     def Rules(self):
+        '''!@brief Функция вызова правил игры
+        '''
         self.dialog_rules.show()
 
 class Pre_game_Window(QtWidgets.QMainWindow, Pre_game_menu.Ui_MainWindow):
+    '''!@brief класс вызова окна с выбором никнеймов 
+    '''
     def __init__(self, parent=None):
         super().__init__()
         self.setupUi(self)
@@ -49,6 +66,8 @@ class Pre_game_Window(QtWidgets.QMainWindow, Pre_game_menu.Ui_MainWindow):
         self.dialog_game_process = Play_Window(self)
  
     def Game(self):
+        '''@!brief Функция присваивания никнеймов
+        '''
         self.dialog_game_process.show()
 
         global First_player_nickname
@@ -59,10 +78,14 @@ class Pre_game_Window(QtWidgets.QMainWindow, Pre_game_menu.Ui_MainWindow):
         Word = self.Current_word_text.toPlainText()
  
     def Comeback(self):
+        '''@!brief Функция закрытия Пре-окна
+        '''
         self.hide()
         
-# Описаниее окна игрового процесса,здесь есть кнопка Next_turn_button, ну собственно здесь начинается работа девелоперов
+
 class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
+    '''!@brief Описаниее окна игрового процесса,здесь есть кнопка Next_turn_button, ну собственно здесь начинается работа девелоперов
+    '''
     def __init__(self, parent=None):
         super().__init__()
         self.setupUi(self)
@@ -111,7 +134,9 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
         self.cards_array = []  # Массив карточек 
         self.num = 8  # Количество карточек
             
-    def Cards_generate(self):  # Получение 8 новых типов карточек (новая партия)
+    def Cards_generate(self): 
+        '''!@brief Получение 8 новых типов карточек (новая партия)
+        '''
 
         global First_player_nickname
         global Second_player_nickname
@@ -140,6 +165,8 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
         self.Card7.setText(self.data_card_text[7])
 
     def Next_turn(self):
+        '''!@ Функция переключения хода
+        '''
         self.Turn += 1
         if (self.Turn % 2 == 0):
             clean()
@@ -148,6 +175,8 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
                 print("Player " + str(self.winner) + " победил")
         
     def Card_0_add(self):
+        '''!@brief Функция добавления карты в код игрока
+        '''
         self.Output_label.setText(output_string)
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[0] + "\n"
@@ -162,6 +191,8 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
         self.Next_turn()
 
     def Card_1_add(self):
+        '''!@brief Функция добавления карты в код игрока
+        '''
         self.Output_label.setText(output_string)
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[1] + "\n"
@@ -176,6 +207,8 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
         self.Next_turn()
 
     def Card_2_add(self):
+        '''!@brief Функция добавления карты в код игрока
+        '''
         self.Output_label.setText(get_output())
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[2] + "\n"
@@ -190,6 +223,8 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
         self.Next_turn()
 
     def Card_3_add(self):
+        '''!@brief Функция добавления карты в код игрока
+        '''
         self.Output_label.setText(get_output())
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[3] + "\n"
@@ -204,6 +239,8 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
         self.Next_turn()
 
     def Card_4_add(self):
+        '''!@brief Функция добавления карты в код игрока
+        '''
         self.Output_label.setText(get_output())
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[4] + "\n"
@@ -218,6 +255,8 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
         self.Next_turn()
 
     def Card_5_add(self):
+        '''!@brief Функция добавления карты в код игрока
+        '''
         self.Output_label.setText(get_output())
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[5] + "\n"
@@ -232,6 +271,8 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
         self.Next_turn()
 
     def Card_6_add(self):
+        '''!@brief Функция добавления карты в код игрока
+        '''
         self.Output_label.setText(get_output())
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[6] + "\n"
@@ -246,6 +287,8 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
         self.Next_turn()
 
     def Card_7_add(self):
+        '''!@brief Функция добавления карты в код игрока
+        '''
         self.Output_label.setText(get_output())
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[7] + "\n"
@@ -260,29 +303,41 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
         self.Next_turn()
                   
     def Comeback(self):
+        '''!@brief Фукнция возвратa
+        '''
         self.hide()
         
 class Settings_Window(QtWidgets.QMainWindow, settings.Ui_MainWindow):
-    def __init__(self, parent=None):
-        super().__init__()
-        self.setupUi(self)
-        self.Back_to_main_menu_button.clicked.connect(self.comeback)
-
-    def comeback(self): 
-        self.hide()
-        
-# Окно правил        
-class Rules_Window(QtWidgets.QMainWindow, rules_menu.Ui_MainWindow):
+    '''!@brief Класс вызова окна настроек
+    '''
     def __init__(self, parent=None):
         super().__init__()
         self.setupUi(self)
         self.Back_to_main_menu_button.clicked.connect(self.comeback)
 
     def comeback(self):
+        '''!@brief Функция возврата
+        '''
+        self.hide()
+        
+       
+class Rules_Window(QtWidgets.QMainWindow, rules_menu.Ui_MainWindow):
+    '''!@brief Класс вызова правил игры
+    '''
+    def __init__(self, parent=None):
+        super().__init__()
+        self.setupUi(self)
+        self.Back_to_main_menu_button.clicked.connect(self.comeback)
+
+    def comeback(self):
+        '''!@brief Функция возврата
+        '''
         self.hide()
 
-# main function    
+   
 def main():
+    '''!@brief основная функция работы файла
+    '''
     app = QtWidgets.QApplication(sys.argv)
     main_window = Main_Window()
     main_window.show()

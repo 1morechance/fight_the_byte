@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['retranslateui',['retranslateUi',['../classmain__menu_1_1_ui___main_window.html#afc5b3b59947cb086923048a8fda86243',1,'main_menu::Ui_MainWindow']]]
+  ['output_5fvalue',['output_value',['../classcards_1_1_putchar__p__card.html#a8335744de904ecff2f37b17dfb3a89d5',1,'cards::Putchar_p_card']]]
 ];
