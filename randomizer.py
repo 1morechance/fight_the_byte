@@ -34,14 +34,6 @@ def generate_vars(m):
     return vars_data
 
 
-# # Проверка: присвоено ли какое-то значение перерменной
-# def has_value(cell):
-#     if cell is None:
-#         return False
-#     else:
-#         return True
-
-
 # Функция выбора ("взвешенного" - неравновероятных событий)
 # 1) На основании данных DataFrame или абсолютно случайно
 # 2) Будет ли это переменная или указатель
@@ -65,98 +57,188 @@ def count_vars(vars_data):
     return counter
 
 
-# TODO: создать генерацию указателей
+# Создание карточки переменной
+def create_var_card(vars_data, word, var_name, index_main):
+    if vars_data.loc[var_name, 'Type'] is None:
+        vars_data.loc[var_name, 'Type'] = 'VAR'
+
+    word_symbol = word[randint(0, len(word) - 1)]
+    # Шансы соответственно 20%, 20%, 18%, 12% и 15%
+    card_choice = {'init': 20, 'declaration': 20, 'i+d': 18,
+                   'value-value': 12, 'i-another': 15, 'putchar': 15}
+
+    choice = select_type(card_choice)
+    if choice == 'init':
+        Card = Init_card(char_name=var_name, char_value=word_symbol)
+
+        vars_data.loc[var_name, 'Value'] = word_symbol
+
+    elif choice == 'declaration':
+        Card = Declaration_card(char_name=var_name)
+
+        vars_data.loc[var_name, 'Declaration'] = True
+
+    elif choice == 'i+d':
+        Card = Init_declaration_card(char_name=var_name, char_value=word_symbol)
+
+        vars_data.loc[var_name, 'Declaration'] = True
+        vars_data.loc[var_name, 'Value'] = word_symbol
+
+    elif choice == 'value-value':
+        index_add = randint(0, len(vars_data.index) - 1)
+        while index_add == index_main:
+            index_add = randint(0, len(vars_data.index) - 1)
+        second_var = vars_data.index[index_add]
+        Card = Value_to_value_card(left_name=var_name, right_name=second_var)
+
+        if vars_data.loc[second_var, 'Value'] is not None:
+            vars_data.loc[var_name, 'Value'] = vars_data.loc[second_var, 'Value']
+
+    elif choice == 'putchar':
+        Card = Putchar_card(char_name=var_name)
+
+        vars_data.loc[var_name, 'Putchar'] = True
+
+    elif choice == 'i-another':
+        index_add = randint(0, len(vars_data.index) - 1)
+        while index_add == index_main:
+            index_add = randint(0, len(vars_data.index) - 1)
+        second_var = vars_data.index[index_add]
+        Card = Init_card_another_var(left_name=var_name, right_name=second_var)
+
+        vars_data.loc[var_name, 'Declaration'] = True
+        if vars_data.loc[second_var, 'Value'] is not None:
+            vars_data.loc[var_name, 'Value'] = vars_data.loc[second_var, 'Value']
+
+        return vars_data, Card
+
+
+def create_pointer_card(vars_data, var_name, p_name, index_p):
+    if vars_data.loc[p_name, 'Type'] is None:
+        vars_data.loc[p_name, 'Type'] = 'POINTER'
+
+    card_choice = {'init': 18, 'declaration': 18, 'value-from': 16,
+                   'value-value': 12, 'init-by': 14, 'p-p':10, 'putchar': 12}
+
+    choice = select_type(card_choice)
+    if choice == 'init':
+        Card = Init_p_card(p_name=p_name, p_ref=var_name)
+
+        if vars_data.loc[p_name, 'Type'] is None:
+            vars_data.loc[p_name, 'Type'] = 'POINTER'
+        vars_data.loc[p_name, 'Declaration'] = True
+        if vars_data.loc[p_name, 'Value'] is not None:
+            vars_data.loc[p_name, 'Value'] = vars_data.index[index_p]
+
+    elif choice == 'declaration':
+        Card = Declaration_p_card(pointer_name=p_name)
+
+        vars_data.loc[p_name, 'Declaration'] = True
+
+    elif choice == 'value-from':
+        Card = Value_from_pointer(char_name=var_name, pointer_name=p_name)
+
+        if vars_data.loc[var_name, 'Type'] is None:
+            vars_data.loc[var_name, 'Type'] = 'VAR'
+        if vars_data.loc[p_name, 'Value'] is not None:
+
+    elif choice == 'value-value':
+        index_add = randint(0, len(vars_data.index) - 1)
+        while index_add == index_p:
+            index_add = randint(0, len(vars_data.index) - 1)
+        second_p = vars_data.index[index_add]
+        Card = Value_to_value_p_card(p_1=p_name, p_2=second_p)
+
+        if vars_data.loc[second_p, 'Value'] is not None:
+            vars_data.loc[p_name, 'Value'] = vars_data.loc[second_p, 'Value']
+
+    elif choice == 'putchar':
+        Card = Putchar_p_card(pointer_name=p_name)
+
+        vars_data.loc[p_name, 'Putchar'] = True
+
+    elif choice == 'init-by':
+        Card = Init_by_pointer(char_name=var_name, pointer_name=p_name)
+
+        if vars_data.loc[var_name, 'Type'] is None:
+            vars_data.loc[var_name, 'Type'] = 'VAR'
+        if vars_data.loc[p_name, 'Value'] is not None:
+            vars_data.loc[var_name, 'Value'] = vars_data.loc[p_name, 'Value']
+
+    elif choice == 'p-p':
+        index_add = randint(0, len(vars_data.index) - 1)
+        while (index_add == index_p) or (vars_data.iloc[index_add, 1] == 'VAR'):
+            index_add = randint(0, len(vars_data.index) - 1)
+        second_p = vars_data.index[index_add]
+        Card = Pointer_to_pointer(p_1=p_name, p_2=second_p)
+
+        if vars_data.loc[second_p, 'Type'] is None:
+            vars_data.loc[second_p, 'Type'] = 'POINTER'
+        if vars_data.loc[second_p, 'Value'] is not None:
+            vars_data.loc[p_name, 'Value'] = vars_data.loc[second_p, 'Value']
+
+
+    return vars_data, Card
+
+
 # Функция "хитрой" генерации карточки
 # (на основании данных DataFrame)
 def create_card(vars_data, word):
-    index_main = randint(0, len(vars_data.index) - 1)
-    var_name = vars_data.index[index_main]
+    # Находим указатель
+    index_var = randint(0, len(vars_data.index) - 1)
+    var_name = vars_data.index[index_var]
+    while vars_data.loc[var_name, 'Type'] == 'POINTER':
+        index_var = randint(0, len(vars_data.index) - 1)
+        var_name = vars_data.index[index_var]
 
-    if count_vars(vars_data) >= 2*len(word) - 2:  # Переменных больше МИНИМУМА (услвоного)
-        vars_data, Card = create_random_card(vars_data, word)  # temporary
-        # if vars_data.loc[var_name, 'Type'] is None:
-        #     which_type = {'var': 40, 'pointer': 60}  # 40% и 60% соответсвенно
-        #     if select_type(which_type) == 'var':
-        #         vars_data.loc[var_name, 'Type'] = 'VAR'
-        #     else:
-        #         vars_data.loc[var_name, 'Type'] = 'POINTER'
-        # else:
-        # # выбор для уже явной карточки && меньше, чем длина слова
-        #     if vars_data.loc[var_name, 'Type'] == 'VAR':
-        #         pass
-        #     elif vars_data.loc[var_name, 'Type'] == 'POINTER':
-        #         pass
+    # Находим указатель
+    index_p = randint(0, len(vars_data.index) - 1)
+    p_name = vars_data.index[index_p]
+    while vars_data.loc[var_name, 'Type'] == 'VAR':
+        index_p = randint(0, len(vars_data.index) - 1)
+        p_name = vars_data.index[index_p]
+
+    if count_vars(vars_data) >= 2*len(word) - 2:  # Переменных больше МИНИМУМА (условного)
+        if vars_data.loc[var_name, 'Type'] is None:
+            which_type = {'var': 40, 'pointer': 60}  # 40% и 60% соответсвенно
+            if select_type(which_type) == 'var':
+                vars_data, Card = create_var_card(vars_data, word, var_name, index_var)
+            else:
+                vars_data, Card = create_pointer_card(vars_data, var_name, p_name, index_p)
+        else:
+            # выбор для уже явной карточки && меньше, чем длина слова
+            if vars_data.loc[var_name, 'Type'] == 'VAR':
+                vars_data, Card = create_var_card(vars_data, word, var_name, index_var)
+            elif vars_data.loc[var_name, 'Type'] == 'POINTER':
+                vars_data, Card = create_pointer_card(vars_data, var_name, p_name, index_p)
     else:
         # Если переменных достаточно мало (именно VAR)
         # НЕ будет создаваться указателей, пока сюда заходит программа
-        if vars_data.loc[var_name, 'Type'] is None:
-            vars_data.loc[var_name, 'Type'] = 'VAR'
-
-        word_symbol = word[randint(0, len(word) - 1)]
-        # Шансы соотвественно 30%, 30%, 25% и 15%
-        card_choice = {'init': 20, 'declaration': 20, 'i+d': 18,
-                       'value-value': 12, 'i-another': 15, 'putchar': 15}
-        if select_type(card_choice) == 'init':
-            Card = Init_card(char_name=var_name, char_value=word_symbol)
-
-            vars_data.loc[var_name, 'Value'] = word_symbol
-
-        elif select_type(card_choice) == 'declaration':
-            Card = Declaration_card(char_name=var_name)
-
-            vars_data.loc[var_name, 'Declaration'] = True
-
-        elif select_type(card_choice) == 'i+d':
-            Card = Init_declaration_card(char_name=var_name, char_value=word_symbol)
-
-            vars_data.loc[var_name, 'Declaration'] = True
-            vars_data.loc[var_name, 'Value'] = word_symbol
-
-        elif select_type(card_choice) == 'value-value':
-            index_add = randint(0, len(vars_data.index) - 1)
-            while index_add == index_main:
-                index_add = randint(0, len(vars_data.index) - 1)
-            second_var = vars_data.index[index_add]
-            Card = Value_to_value_card(left_name=var_name, right_name=second_var)
-
-            if vars_data.loc[second_var, 'Value'] is not None:
-                vars_data.loc[var_name, 'Value'] = vars_data.loc[second_var, 'Value']
-
-        elif select_type(card_choice) == 'putchar':
-            Card = Putchar_card(char_name=var_name)
-
-            vars_data.loc[var_name, 'Putchar'] = True
-
-        elif select_type(card_choice) == 'i-another':
-            index_add = randint(0, len(vars_data.index) - 1)
-            while index_add == index_main:
-                index_add = randint(0, len(vars_data.index) - 1)
-            second_var = vars_data.index[index_add]
-            Card = Init_card_another_var(left_name=var_name, right_name=second_var)
-
-            vars_data.loc[var_name, 'Declaration'] = True
-            if vars_data.loc[second_var, 'Value'] is not None:
-                vars_data.loc[var_name, 'Value'] = vars_data.loc[second_var, 'Value']
+        vars_data, Card = create_var_card(vars_data, word, var_name, index_var)
 
     return vars_data, Сard
 
 
 # Генерация очередной карточки (абсолютно случайно)
-# TODO: реализовать генерацию указателей
 def create_random_card(vars_data, word):
-    index_main = randint(0, len(vars_data.index) - 1)
-    var_name = vars_data.index[index_main]
-
-    # Так как пока без указателей
+    # Находим указатель
+    index_var = randint(0, len(vars_data.index) - 1)
+    var_name = vars_data.index[index_var]
     while vars_data.loc[var_name, 'Type'] == 'POINTER':
-        index_main = randint(0, len(vars_data.index) - 1)
-        var_name = vars_data.index[index_main]
+        index_var = randint(0, len(vars_data.index) - 1)
+        var_name = vars_data.index[index_var]
 
-    class_amount = 5  # Пока не все реализовано
-    seed = randint(0, class_amount)
+    # Находим указатель
+    index_p = randint(0, len(vars_data.index) - 1)
+    p_name = vars_data.index[index_p]
+    while vars_data.loc[var_name, 'Type'] == 'VAR':
+        index_p = randint(0, len(vars_data.index) - 1)
+        p_name = vars_data.index[index_p]
 
-    # Топорно, согласен (beta)
-    # Пока без поинтеров
+    class_amount = 13
+    seeds = {seed: 20 for seed in range(class_amount)}
+    seed = select_type(seeds)
+
     if seed == 0:
         word_symbol = word[randint(0, len(word) - 1)]
         Card = Init_card(char_name=var_name, char_value=word_symbol)
@@ -183,13 +265,15 @@ def create_random_card(vars_data, word):
 
     if seed == 3:
         index_add = randint(0, len(vars_data.index) - 1)
-        while index_add == index_main:
+        while (index_add == index_var) or (vars_data.iloc[index_add, 1] == 'POINTER'):
             index_add = randint(0, len(vars_data.index) - 1)
         second_var = vars_data.index[index_add]
         Card = Value_to_value_card(left_name=var_name, right_name=second_var)
 
         if vars_data.loc[var_name, 'Type'] is None:
             vars_data.loc[var_name, 'Type'] = 'VAR'
+        if vars_data.loc[second_var, 'Type'] is None:
+            vars_data.loc[second_var, 'Type'] = 'VAR'
         if vars_data.loc[second_var, 'Value'] is not None:
             vars_data.loc[var_name, 'Value'] = vars_data.loc[second_var, 'Value']
 
@@ -203,7 +287,7 @@ def create_random_card(vars_data, word):
 
     if seed == 5:
         index_add = randint(0, len(vars_data.index) - 1)
-        while index_add == index_main:
+        while (index_add == index_var) or (vars_data.iloc[index_add, 1] == 'POINTER'):
             index_add = randint(0, len(vars_data.index) - 1)
         second_var = vars_data.index[index_add]
         Card = Init_card_another_var(left_name=var_name, right_name=second_var)
@@ -214,22 +298,80 @@ def create_random_card(vars_data, word):
         if vars_data.loc[second_var, 'Value'] is not None:
             vars_data.loc[var_name, 'Value'] = vars_data.loc[second_var, 'Value']
 
-    # Init_by_pointer нельзя просто случайно генерировать
-    # (нужно понимать какие у нас указатели))
-    # if seed == :
-    #         Card = Init_by_pointer(char_name=var_name)
+    if seed == 6:
+        Card = Init_by_pointer(char_name=var_name, pointer_name=p_name)
 
-    # if var['Declaration'] && has_value(var) && var['Putchar']:
-    #     vars_data, card = create_random_card(vars_data, word)
-    # else:
-    #     if not var['Declaration']:
-    #         card =
-    #
-    #     elif not has_value(var):
-    #         card =
-    #
-    #     elif not var['Putchar']:
-    #         card =
+        if vars_data.loc[var_name, 'Type'] is None:
+            vars_data.loc[var_name, 'Type'] = 'VAR'
+        if vars_data.loc[p_name, 'Type'] is None:
+            vars_data.loc[p_name, 'Type'] = 'POINTER'
+        if vars_data.loc[p_name, 'Value'] is not None:
+            vars_data.loc[var_name, 'Value'] = vars_data.loc[p_name, 'Value']
+
+    if seed == 7:
+        Card = Declaration_p_card(pointer_name=p_name)
+
+        if vars_data.loc[p_name, 'Type'] is None:
+            vars_data.loc[p_name, 'Type'] = 'POINTER'
+        vars_data.loc[p_name, 'Declaration'] = True
+
+    if seed == 8:
+        while vars_data.loc[var_name, 'Type'] is None:
+            index_var = randint(0, len(vars_data.index) - 1)
+            var_name = vars_data.index[index_var]
+
+        Card = Init_p_card(p_name=p_name, p_ref=var_name)
+
+        if vars_data.loc[p_name, 'Type'] is None:
+            vars_data.loc[p_name, 'Type'] = 'POINTER'
+        vars_data.loc[p_name, 'Declaration'] = True
+        if vars_data.loc[p_name, 'Value'] is not None:
+            vars_data.loc[p_name, 'Value'] = vars_data.index[index_p]
+
+    if seed == 9:
+        Card = Putchar_p_card(pointer_name=p_name)
+
+        if vars_data.loc[p_name, 'Type'] is None:
+            vars_data.loc[p_name, 'Type'] = 'POINTER'
+
+        vars_data.loc[p_name, 'Putchar'] = True
+
+    if seed == 10:
+        index_add = randint(0, len(vars_data.index) - 1)
+        while (index_add == index_p) or (vars_data.iloc[index_add, 1] == 'VAR'):
+            index_add = randint(0, len(vars_data.index) - 1)
+        second_p = vars_data.index[index_add]
+        Card = Pointer_to_pointer(p_1=p_name, p_2=second_p)
+
+        if vars_data.loc[p_name, 'Type'] is None:
+            vars_data.loc[p_name, 'Type'] = 'POINTER'
+        if vars_data.loc[second_p, 'Value'] is not None:
+            vars_data.loc[p_name, 'Value'] = vars_data.loc[second_p, 'Value']
+
+    if seed == 11:
+        Card = Value_from_pointer(char_name=var_name, pointer_name=p_name)
+
+        if vars_data.loc[var_name, 'Type'] is None:
+            vars_data.loc[var_name, 'Type'] = 'VAR'
+        if vars_data.loc[p_name, 'Type'] is None:
+            vars_data.loc[p_name, 'Type'] = 'POINTER'
+        if vars_data.loc[p_name, 'Value'] is not None:
+            vars_data.loc[var_name, 'Value'] = vars_data.loc[p_name, 'Value']
+
+    if seed == 12:
+        index_add = randint(0, len(vars_data.index) - 1)
+        while (index_add == index_p) or (vars_data.iloc[index_add, 1] == 'VAR'):
+            index_add = randint(0, len(vars_data.index) - 1)
+        second_p = vars_data.index[index_add]
+
+        Card = Value_to_value_p(p_1=p_name, p_2=second_p)
+
+        if vars_data.loc[p_name, 'Type'] is None:
+            vars_data.loc[p_name, 'Type'] = 'POINTER'
+        if vars_data.loc[second_p, 'Type'] is None:
+            vars_data.loc[second_p, 'Type'] = 'POINTER'
+        if vars_data.loc[second_p, 'Value'] is not None:
+            vars_data.loc[p_name, 'Value'] = vars_data.loc[second_p, 'Value']
 
     return vars_data, Card
 
