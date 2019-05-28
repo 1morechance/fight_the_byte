@@ -5,3 +5,6 @@ https://docs.google.com/presentation/d/1FilKNzoapICRocjF1IuYulQSHwTweHalq-8VyGDc
 
 # II этап:
 https://docs.google.com/presentation/d/1ZHFR0iKIBoPFepCOgJBBa7iGMStdNjYZnAd3COawqJI/edit?usp=sharing
+
+# Видео: 
+https://www.youtube.com/watch?v=HM1Dsqh5cCo&feature=youtu.be
