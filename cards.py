@@ -400,7 +400,7 @@ class Putchar_card:
 
     '''
 
-    global char_case, output_string
+    global char_case
 
     def __init__(self, char_name):
         self.name = char_name
@@ -415,6 +415,7 @@ class Putchar_card:
             if var.get_name() == self.name:
                 is_exist = True
                 if var.get_value() != None:
+                    global output_string
                     output_string += var.get_value()
                 else:
                     raise RuntimeError("Ошибка: " + self.name + " не была инициализирована ранее")
@@ -435,7 +436,7 @@ class Putchar_p_card:
 
     '''
 
-    global pointer_char_case, char_case
+    global pointer_char_case, char_case, output_string
     
     def __init__(self, pointer_name):
         self.name = pointer_name

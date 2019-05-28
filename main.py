@@ -174,7 +174,6 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
     def Card_0_add(self):
         '''!@brief Функция добавления карты в код игрока
         '''
-        self.Output_label.setText(output_string)
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[0] + "\n"
             self.First_player_stack.append(self.data_card[0])
@@ -186,11 +185,11 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
             self.Second_player_label.setText(self.Second_player_label_text)
             self.Card0.setText('')
         self.Next_turn()
+        self.Output_label.setText(get_output())
 
     def Card_1_add(self):
         '''!@brief Функция добавления карты в код игрока
         '''
-        self.Output_label.setText(output_string)
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[1] + "\n"
             self.First_player_stack.append(self.data_card[1])
@@ -202,11 +201,11 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
             self.Second_player_label.setText(self.Second_player_label_text)
             self.Card1.setText('')
         self.Next_turn()
+        self.Output_label.setText(get_output())
 
     def Card_2_add(self):
         '''!@brief Функция добавления карты в код игрока
         '''
-        self.Output_label.setText(get_output())
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[2] + "\n"
             self.First_player_stack.append(self.data_card[2])
@@ -218,11 +217,11 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
             self.Second_player_label.setText(self.Second_player_label_text)
             self.Card2.setText('')
         self.Next_turn()
+        self.Output_label.setText(get_output())
 
     def Card_3_add(self):
         '''!@brief Функция добавления карты в код игрока
         '''
-        self.Output_label.setText(get_output())
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[3] + "\n"
             self.First_player_stack.append(self.data_card[3])
@@ -234,11 +233,11 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
             self.Second_player_label.setText(self.Second_player_label_text)
             self.Card3.setText('')
         self.Next_turn()
+        self.Output_label.setText(get_output())
 
     def Card_4_add(self):
         '''!@brief Функция добавления карты в код игрока
         '''
-        self.Output_label.setText(get_output())
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[4] + "\n"
             self.First_player_stack.append(self.data_card[4])
@@ -250,11 +249,11 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
             self.Second_player_label.setText(self.Second_player_label_text)
             self.Card4.setText('')
         self.Next_turn()
+        self.Output_label.setText(get_output())
 
     def Card_5_add(self):
         '''!@brief Функция добавления карты в код игрока
         '''
-        self.Output_label.setText(get_output())
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[5] + "\n"
             self.First_player_stack.append(self.data_card[5])
@@ -266,11 +265,11 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
             self.Second_player_label.setText(self.Second_player_label_text)
             self.Card5.setText('')
         self.Next_turn()
+        self.Output_label.setText(get_output())
 
     def Card_6_add(self):
         '''!@brief Функция добавления карты в код игрока
         '''
-        self.Output_label.setText(get_output())
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[6] + "\n"
             self.First_player_stack.append(self.data_card[6])
@@ -282,11 +281,11 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
             self.Second_player_label.setText(self.Second_player_label_text)
             self.Card6.setText('')
         self.Next_turn()
+        self.Output_label.setText(get_output())
 
     def Card_7_add(self):
         '''!@brief Функция добавления карты в код игрока
         '''
-        self.Output_label.setText(get_output())
         if (self.Turn % 2 == 0):
             self.First_player_label_text += self.data_card_text[7] + "\n"
             self.First_player_stack.append(self.data_card[7])
@@ -298,6 +297,7 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
             self.Second_player_label.setText(self.Second_player_label_text)
             self.Card7.setText('')
         self.Next_turn()
+        self.Output_label.setText(get_output())
                   
     def Comeback(self):
         '''!@brief Фукнция возвратa
