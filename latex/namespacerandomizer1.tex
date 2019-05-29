@@ -1,0 +1,147 @@
+\hypertarget{namespacerandomizer1}{}\section{Пространство имен randomizer1}
+\label{namespacerandomizer1}\index{randomizer1@{randomizer1}}
+
+
+сердце программы Randomizer -\/ генератор рандомных карточек Контролируемый рандом  
+
+
+\subsection*{Функции}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{namespacerandomizer1_a40bbd2b372ab50db7c35b965d9076355}{generate\+\_\+vars}} (m)
+\begin{DoxyCompactList}\small\item\em Генерация карточек \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacerandomizer1_a82d6d6bde9c9bf9b4624bda3d736dc5a}{select\+\_\+type}} (choices)
+\begin{DoxyCompactList}\small\item\em Функция выбора (\char`\"{}взвешенного\char`\"{} -\/ неравновероятных событий) \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacerandomizer1_a0d8fc6dae2c29e91762a929a62b58715}{count\+\_\+vars}} (vars\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Фукнция подсчета количества V\+A\+R-\/ов \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacerandomizer1_a3983afcdf70cda27af08b896fe7988cb}{create\+\_\+card}} (vars\+\_\+data, word)
+\begin{DoxyCompactList}\small\item\em Функция \char`\"{}хитрой\char`\"{} генерации карточки (на основании данных Data\+Frame) \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacerandomizer1_a8acf66d6e60bed96fe8be151fd02fd57}{create\+\_\+random\+\_\+card}} (vars\+\_\+data, word)
+\begin{DoxyCompactList}\small\item\em Генерация очередной карточки (абсолютно случайно) \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacerandomizer1_a31473a95049c7598346cea38e5570082}{analyse\+\_\+data}} (vars\+\_\+data, word, n)
+\begin{DoxyCompactList}\small\item\em Функция генерации списка карточек на драфте \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacerandomizer1_a587668ab51bf0a60bb1df68b2688d780}{generate\+\_\+draft}} (n, vars\+\_\+data, word)
+\begin{DoxyCompactList}\small\item\em Функция, генерирущая очередной драфт карточек (вызыввается в main.\+py) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Подробное описание}
+сердце программы Randomizer -\/ генератор рандомных карточек Контролируемый рандом 
+
+Генерирует 8 карточек 
+
+\subsection{Функции}
+\mbox{\Hypertarget{namespacerandomizer1_a31473a95049c7598346cea38e5570082}\label{namespacerandomizer1_a31473a95049c7598346cea38e5570082}} 
+\index{randomizer1@{randomizer1}!analyse\_data@{analyse\_data}}
+\index{analyse\_data@{analyse\_data}!randomizer1@{randomizer1}}
+\subsubsection{\texorpdfstring{analyse\_data()}{analyse\_data()}}
+{\footnotesize\ttfamily def randomizer1.\+analyse\+\_\+data (\begin{DoxyParamCaption}\item[{}]{vars\+\_\+data,  }\item[{}]{word,  }\item[{}]{n }\end{DoxyParamCaption})}
+
+
+
+Функция генерации списка карточек на драфте 
+
+
+\begin{DoxyParams}[1]{Аргументы}
+\mbox{\texttt{ in}}  & {\em vars\+\_\+data,word} & -\/ слово, которое надо распечатать игроку \\
+\hline
+\mbox{\texttt{ out}}  & {\em vars\+\_\+data,cards\+\_\+array} & -\/ массив сгенерированных карточек \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{namespacerandomizer1_a0d8fc6dae2c29e91762a929a62b58715}\label{namespacerandomizer1_a0d8fc6dae2c29e91762a929a62b58715}} 
+\index{randomizer1@{randomizer1}!count\_vars@{count\_vars}}
+\index{count\_vars@{count\_vars}!randomizer1@{randomizer1}}
+\subsubsection{\texorpdfstring{count\_vars()}{count\_vars()}}
+{\footnotesize\ttfamily def randomizer1.\+count\+\_\+vars (\begin{DoxyParamCaption}\item[{}]{vars\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Фукнция подсчета количества V\+A\+R-\/ов 
+
+
+\begin{DoxyParams}[1]{Аргументы}
+\mbox{\texttt{ out}}  & {\em counter} & -\/ счетчик \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{namespacerandomizer1_a3983afcdf70cda27af08b896fe7988cb}\label{namespacerandomizer1_a3983afcdf70cda27af08b896fe7988cb}} 
+\index{randomizer1@{randomizer1}!create\_card@{create\_card}}
+\index{create\_card@{create\_card}!randomizer1@{randomizer1}}
+\subsubsection{\texorpdfstring{create\_card()}{create\_card()}}
+{\footnotesize\ttfamily def randomizer1.\+create\+\_\+card (\begin{DoxyParamCaption}\item[{}]{vars\+\_\+data,  }\item[{}]{word }\end{DoxyParamCaption})}
+
+
+
+Функция \char`\"{}хитрой\char`\"{} генерации карточки (на основании данных Data\+Frame) 
+
+
+\begin{DoxyParams}[1]{Аргументы}
+ & {\em index\+\_\+main} & -\/ рандомное число \\
+\hline
+ & {\em var\+\_\+name} & -\/ имя созданной карточки \\
+\hline
+\mbox{\texttt{ out}}  & {\em vars\+\_\+data,Card} & -\/ Возвращает сгенерированную карточку \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{namespacerandomizer1_a8acf66d6e60bed96fe8be151fd02fd57}\label{namespacerandomizer1_a8acf66d6e60bed96fe8be151fd02fd57}} 
+\index{randomizer1@{randomizer1}!create\_random\_card@{create\_random\_card}}
+\index{create\_random\_card@{create\_random\_card}!randomizer1@{randomizer1}}
+\subsubsection{\texorpdfstring{create\_random\_card()}{create\_random\_card()}}
+{\footnotesize\ttfamily def randomizer1.\+create\+\_\+random\+\_\+card (\begin{DoxyParamCaption}\item[{}]{vars\+\_\+data,  }\item[{}]{word }\end{DoxyParamCaption})}
+
+
+
+Генерация очередной карточки (абсолютно случайно) 
+
+
+\begin{DoxyParams}[1]{Аргументы}
+\mbox{\texttt{ in}}  & {\em vars\+\_\+data,word} & -\/ массив сгенерированных карточек и слово \\
+\hline
+\mbox{\texttt{ out}}  & {\em vars\+\_\+data,Card} & -\/ возвращает сгенерированную карточку \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{namespacerandomizer1_a587668ab51bf0a60bb1df68b2688d780}\label{namespacerandomizer1_a587668ab51bf0a60bb1df68b2688d780}} 
+\index{randomizer1@{randomizer1}!generate\_draft@{generate\_draft}}
+\index{generate\_draft@{generate\_draft}!randomizer1@{randomizer1}}
+\subsubsection{\texorpdfstring{generate\_draft()}{generate\_draft()}}
+{\footnotesize\ttfamily def randomizer1.\+generate\+\_\+draft (\begin{DoxyParamCaption}\item[{}]{n,  }\item[{}]{vars\+\_\+data,  }\item[{}]{word }\end{DoxyParamCaption})}
+
+
+
+Функция, генерирущая очередной драфт карточек (вызыввается в main.\+py) 
+
+
+\begin{DoxyParams}[1]{Аргументы}
+\mbox{\texttt{ in}}  & {\em n} & -- Количество карточек на драфте \\
+\hline
+\mbox{\texttt{ in}}  & {\em vars\+\_\+data} & -- Data\+Frame (pandas) с информацией переменных и указателях \\
+\hline
+\mbox{\texttt{ in}}  & {\em word} & -- слово, которое по заданию надо распечатать игроку \\
+\hline
+\mbox{\texttt{ out}}  & {\em output\+\_\+tuple} & -\/ кортеж с измененнными Data\+Frame \& список карточек (в таком порядке!) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{namespacerandomizer1_a40bbd2b372ab50db7c35b965d9076355}\label{namespacerandomizer1_a40bbd2b372ab50db7c35b965d9076355}} 
+\index{randomizer1@{randomizer1}!generate\_vars@{generate\_vars}}
+\index{generate\_vars@{generate\_vars}!randomizer1@{randomizer1}}
+\subsubsection{\texorpdfstring{generate\_vars()}{generate\_vars()}}
+{\footnotesize\ttfamily def randomizer1.\+generate\+\_\+vars (\begin{DoxyParamCaption}\item[{}]{m }\end{DoxyParamCaption})}
+
+
+
+Генерация карточек 
+
+Функция генерирует имена переменных на первом драфте. Имя переменной -\/ случайная буква из simple\+\_\+names @params simple\+\_\+names -\/ буквы для имен карточек @params length -\/ количество букв @params names\+\_\+list -\/ массив сгенерированных карточек @params\mbox{[}out\mbox{]} vars\+\_\+data -\/ Data\+Frame @params var -\/ имя текущей созданной карточки \mbox{\Hypertarget{namespacerandomizer1_a82d6d6bde9c9bf9b4624bda3d736dc5a}\label{namespacerandomizer1_a82d6d6bde9c9bf9b4624bda3d736dc5a}} 
+\index{randomizer1@{randomizer1}!select\_type@{select\_type}}
+\index{select\_type@{select\_type}!randomizer1@{randomizer1}}
+\subsubsection{\texorpdfstring{select\_type()}{select\_type()}}
+{\footnotesize\ttfamily def randomizer1.\+select\+\_\+type (\begin{DoxyParamCaption}\item[{}]{choices }\end{DoxyParamCaption})}
+
+
+
+Функция выбора (\char`\"{}взвешенного\char`\"{} -\/ неравновероятных событий) 
+
+\begin{DoxyVerb}1) На основании данных DataFrame или абсолютно случайно
+2) Будет ли это переменная или указатель
+3) Будет ли это просто init AND/OR declaration
+@param[out] key - ключ к выбору типа
+\end{DoxyVerb}
+ 

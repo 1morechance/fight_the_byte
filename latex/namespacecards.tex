@@ -1,0 +1,77 @@
+\hypertarget{namespacecards}{}\section{Пространство имен cards}
+\label{namespacecards}\index{cards@{cards}}
+
+
+Классы карточек для интепретатора.  
+
+
+\subsection*{Классы}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classcards_1_1_declaration__card}{Declaration\+\_\+card}}
+\begin{DoxyCompactList}\small\item\em Класс для объявления переменной \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classcards_1_1_declaration__p__card}{Declaration\+\_\+p\+\_\+card}}
+\begin{DoxyCompactList}\small\item\em Класс объявления указателя \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classcards_1_1_init__by__pointer}{Init\+\_\+by\+\_\+pointer}}
+\begin{DoxyCompactList}\small\item\em Класс для объявления переменной через указатель \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classcards_1_1_init__card}{Init\+\_\+card}}
+\begin{DoxyCompactList}\small\item\em Класс инициализации существующей переменной \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classcards_1_1_init__card__another__var}{Init\+\_\+card\+\_\+another\+\_\+var}}
+\begin{DoxyCompactList}\small\item\em Класс для совместного объявления и инициализации другой переменной \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classcards_1_1_init__declaration__card}{Init\+\_\+declaration\+\_\+card}}
+\begin{DoxyCompactList}\small\item\em Класс для совместного обьявления и инициализации \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classcards_1_1_init__p__card}{Init\+\_\+p\+\_\+card}}
+\begin{DoxyCompactList}\small\item\em Класс инициализации указателя \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classcards_1_1_pointer__to__pointer}{Pointer\+\_\+to\+\_\+pointer}}
+\begin{DoxyCompactList}\small\item\em Класс для присваивания указателся указателю \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classcards_1_1_putchar__card}{Putchar\+\_\+card}}
+\begin{DoxyCompactList}\small\item\em Класс вывода значения переменной \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classcards_1_1_putchar__p__card}{Putchar\+\_\+p\+\_\+card}}
+\begin{DoxyCompactList}\small\item\em Класс для вывода указателя \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classcards_1_1_value__from__pointer}{Value\+\_\+from\+\_\+pointer}}
+\begin{DoxyCompactList}\small\item\em Класс для присваивания значения указателя переменной \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classcards_1_1_value__to__value__card}{Value\+\_\+to\+\_\+value\+\_\+card}}
+\begin{DoxyCompactList}\small\item\em Класс для присваивания переменных типа char. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classcards_1_1_value__to__value__p}{Value\+\_\+to\+\_\+value\+\_\+p}}
+\begin{DoxyCompactList}\small\item\em Класс для присваивания значения указателя указателю \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Функции}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacecards_a001d40f16821796e2019c65c9e6277c2}\label{namespacecards_a001d40f16821796e2019c65c9e6277c2}} 
+def {\bfseries clean} ()
+\item 
+\mbox{\Hypertarget{namespacecards_ad24139e6220ed9ad6ae0d579a2f41548}\label{namespacecards_ad24139e6220ed9ad6ae0d579a2f41548}} 
+def {\bfseries get\+\_\+output} ()
+\item 
+\mbox{\Hypertarget{namespacecards_abe18b640a3bca34c36bc81f1eb6e7340}\label{namespacecards_abe18b640a3bca34c36bc81f1eb6e7340}} 
+def {\bfseries set\+\_\+output} (string)
+\end{DoxyCompactItemize}
+\subsection*{Переменные}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespacecards_acb52e19f83c7e95f60e2f68cf3f6fad6}\label{namespacecards_acb52e19f83c7e95f60e2f68cf3f6fad6}} 
+list {\bfseries char\+\_\+case} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacecards_a1e9da22e112f02c416df5614e0eb62c5}\label{namespacecards_a1e9da22e112f02c416df5614e0eb62c5}} 
+list {\bfseries pointer\+\_\+char\+\_\+case} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{namespacecards_a87505681329b8efa731bca8031dfacf5}\label{namespacecards_a87505681329b8efa731bca8031dfacf5}} 
+string {\bfseries output\+\_\+string} = \char`\"{}\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\subsection{Подробное описание}
+Классы карточек для интепретатора. 
+
+Данные классы позволяют интерпертировать выбранные игроками карточки в код ЯП Си. \begin{DoxyAuthor}{Автор}
+Данный ряд классов был создан Владиславом Кривозубовым студентом ИУ7-\/22Б 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}[1]{Аргументы}
+\mbox{\texttt{ in}}  & {\em char\+\_\+case} & -\/ массив сгенерированных простых карточек \\
+\hline
+\mbox{\texttt{ in}}  & {\em pointer\+\_\+char\+\_\+case} & -\/ массив сгенерированных карточек указателей \\
+\hline
+\mbox{\texttt{ out}}  & {\em output\+\_\+string} & -\/ Выходная строка \\
+\hline
+\end{DoxyParams}
