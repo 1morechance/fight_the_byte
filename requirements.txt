@@ -1,0 +1,5 @@
+# Requirements: # 
+pandas
+PyQt5 
+Pillow
+tkinter
