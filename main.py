@@ -13,13 +13,14 @@ import Pre_game_menu
 from cards import clean, get_output, set_output
 from interpret import interpretation
 
-global First_player_nickname
+
+'''global First_player_nickname
 First_player_nickname = ''
 global Second_player_nickname
 Second_player_nickname = ''
 global Word
 Word = ''
-
+'''
 
 class Main_Window(QtWidgets.QMainWindow, main_menu.Ui_MainWindow):
     '''!@brief Класс описания параметров и функций кнопок главного меню
@@ -27,30 +28,7 @@ class Main_Window(QtWidgets.QMainWindow, main_menu.Ui_MainWindow):
     def __init__(self, parent=None):
         super().__init__()
         self.setupUi(self)
-        
-        # Описываем функции каждой кнопки, используя ее objectName(Play_button, etc.)
-        self.Play_button.clicked.connect(self.Game)
-        self.Settings_button.clicked.connect(self.Settings)
-        self.Rules_button.clicked.connect(self.Rules)
-        self.dialog_game_process = Pre_game_Window(self)
-        self.dialog_settings = Settings_Window(self)
-        self.dialog_rules = Rules_Window(self)
-        
-    #Функции, вызова новых окон в соответствии с каждой кнопкой
-    def Game(self):
-        '''!@brief Функция вызова начала игры
-        '''
-        self.dialog_game_process.show()
-
-    def Settings(self):
-        '''!@brief Функция вызова настроек игры
-        '''
-        self.dialog_settings.show()
-
-    def Rules(self):
-        '''!@brief Функция вызова правил игры
-        '''
-        self.dialog_rules.show()
+        self.setup_actions_main()       
 
 class Pre_game_Window(QtWidgets.QMainWindow, Pre_game_menu.Ui_MainWindow):
     '''!@brief класс вызова окна с выбором никнеймов 
@@ -81,7 +59,7 @@ class Pre_game_Window(QtWidgets.QMainWindow, Pre_game_menu.Ui_MainWindow):
         
 
 class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
-    '''!@brief Описаниее окна игрового процесса,здесь есть кнопка Next_turn_button, ну собственно здесь начинается работа девелоперов
+    '''!@brief Описание окна игрового процесса,здесь есть кнопка Next_turn_button, ну собственно здесь начинается работа девелоперов
     '''
     def __init__(self, parent=None):
         super().__init__()
