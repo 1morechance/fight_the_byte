@@ -9,7 +9,6 @@ import main_menu
 import game_process_menu
 import settings
 import rules_menu
-import Pre_game_menu
 from cards import clean, get_output, set_output
 from interpret import interpretation
 
@@ -27,37 +26,9 @@ class Main_Window(QtWidgets.QMainWindow, main_menu.Ui_MainWindow):
     '''
     def __init__(self, parent=None):
         super().__init__()
-        self.setupUi(self)
+        self.setup_main(self)
         self.setup_actions_main()       
-
-class Pre_game_Window(QtWidgets.QMainWindow, Pre_game_menu.Ui_MainWindow):
-    '''!@brief класс вызова окна с выбором никнеймов 
-    '''
-    def __init__(self, parent=None):
-        super().__init__()
-        self.setupUi(self)
-        self.Back_to_main_menu_button.clicked.connect(self.Comeback)
-        self.Play_the_game_button.clicked.connect(self.Game)
-        self.dialog_game_process = Play_Window(self)
- 
-    def Game(self):
-        '''@!brief Функция присваивания никнеймов
-        '''
-        self.dialog_game_process.show()
-
-        global First_player_nickname
-        First_player_nickname = self.First_player_nickname_text.toPlainText()
-        global Second_player_nickname
-        Second_player_nickname = self.Second_player_nickname_text.toPlainText()
-        global Word
-        Word = self.Current_word_text.toPlainText()
- 
-    def Comeback(self):
-        '''@!brief Функция закрытия Пре-окна
-        '''
-        self.hide()
         
-
 class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
     '''!@brief Описание окна игрового процесса,здесь есть кнопка Next_turn_button, ну собственно здесь начинается работа девелоперов
     '''

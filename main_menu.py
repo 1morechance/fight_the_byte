@@ -7,8 +7,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PIL import Image
 import tkinter
+import vlc
 
-# Никнеймы + ключевое слово
+#player = vlc.MediaPlayer("jose-gonzalez-crosses.mp3")
+
+melody = vlc.MediaPlayer("jose-gonzalez-crosses.mp3")
+
 First_player_nickname = ''
 Second_player_nickname = ''
 Word = ''
@@ -34,7 +38,7 @@ class Ui_MainWindow(object):
     '''!@brief Класс главного окна игры, содержащий все необходимые виджеты
         
     '''
-    def setupUi(self, MainWindow):
+    def setup_main(self, MainWindow):
         '''!@brief Фукнция, расставляющая виджеты по экрану
 
         '''
@@ -56,7 +60,6 @@ class Ui_MainWindow(object):
         new_button_width = (width / 1440) * 571 # Изменение ширины кнопки
         new_button_height = (height / 900) * 111 # Изменение высоты кнопки
         
-
         self.label.setPixmap(QtGui.QPixmap("T_Menu_png.png"))
         self.label.setObjectName("label")
 
@@ -127,7 +130,8 @@ class Ui_MainWindow(object):
     def to_settings(self):
         '''!@brief Функция вызова настроек игры
         '''
-        self.dialog_settings.show()
+        self.setup_settings(self)
+        self.setup_actions_settings()
 
     def to_rules(self):
         '''!@brief Функция вызова правил игры
@@ -135,6 +139,97 @@ class Ui_MainWindow(object):
         self.dialog_rules.show()
 
     # ------------------------------------------
+
+    def setup_settings(self, MainWindow):
+        self.centralwidget.deleteLater()
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setEnabled(True)
+        self.label.setGeometry(QtCore.QRect(0, 0, width, height))
+        self.label.setText("")
+
+        resize_image("Settings_png.png", "T_Settings_png.png", (width, height))
+
+        self.label.setPixmap(QtGui.QPixmap("T_Settings_png.png"))
+        self.label.setObjectName("label")
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setGeometry(QtCore.QRect(width_k * 890, height_k * 190, width_k * 100, height_k * 100))
+        self.pushButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.pushButton.setText("")
+        icon = QtGui.QIcon()
+
+        resize_image("Off_button_png.png", "T_Off_button_png.png", (int(width_k * 100), int(height_k * 100)))
+        resize_image("On_button_png.png", "T_On_button_png.png", (int(width_k * 100), int(height_k * 100)))
+
+        icon.addPixmap(QtGui.QPixmap("T_Off_button_png.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("T_On_button_png.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.pushButton.setIcon(icon)
+        self.pushButton.setIconSize(QtCore.QSize(width_k * 100, height_k * 100))
+        self.pushButton.setCheckable(True)
+        self.pushButton.setChecked(False)
+        '''
+        try:
+            if (not self.melody.is_playing()):
+                self.pushButton.setChecked(False)
+            else:
+                self.pushButton.setChecked(True)
+        except AttributeError:
+            pass
+        '''
+        self.pushButton.setObjectName("pushButton")
+        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_2.setGeometry(QtCore.QRect(width_k * 890, height_k * 410, width_k * 100, height_k * 100))
+        self.pushButton_2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.pushButton_2.setText("")
+        self.pushButton_2.setIcon(icon)
+        self.pushButton_2.setIconSize(QtCore.QSize(width_k * 100, height_k * 100))
+        self.pushButton_2.setCheckable(True)
+        if (melody.is_playing()):
+            self.pushButton_2.setChecked(True)
+        else:
+            self.pushButton_2.setChecked(False)
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.Back_to_main_menu_button = QtWidgets.QPushButton(self.centralwidget)
+        self.Back_to_main_menu_button.setGeometry(QtCore.QRect(width_k * 20, height_k * 30, width_k * 361, height_k * 91))
+        self.Back_to_main_menu_button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.Back_to_main_menu_button.setText("")
+        icon1 = QtGui.QIcon()
+
+        resize_image("Back_to_main_menu_button_png.png", "T_Back_to_main_menu_button_png.png", (int(width_k * 361), int(height_k * 91)))
+
+        icon1.addPixmap(QtGui.QPixmap("T_Back_to_main_menu_button_png.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.Back_to_main_menu_button.setIcon(icon1)
+        self.Back_to_main_menu_button.setIconSize(QtCore.QSize(width_k * 361, height_k * 91))
+        self.Back_to_main_menu_button.setObjectName("Back_to_main_menu_button")
+        self.horizontalSlider = QtWidgets.QSlider(self.centralwidget)
+        self.horizontalSlider.setGeometry(QtCore.QRect(width_k * 810, height_k * 670, width_k * 191, height_k * 51))
+        self.horizontalSlider.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.horizontalSlider.setOrientation(QtCore.Qt.Horizontal)
+        self.horizontalSlider.setObjectName("horizontalSlider")
+        MainWindow.setCentralWidget(self.centralwidget)
+
+        self.retranslateSettings(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    # ----------------Settings Window Backend------------------
+    def setup_actions_settings(self):
+        self.Back_to_main_menu_button.clicked.connect(self.to_main)
+        self.pushButton_2.clicked.connect(self.music_check)
+        self.pushButton.clicked.connect(self.clicks)
+
+    def music_check(self):
+        if (self.pushButton_2.isChecked()):
+            melody.play()
+        else:
+            melody.pause()
+
+    def clicks(self):
+        pass
+    
+    # Возврат в главное меню - метод to_main общий для нескольких кнопок
+    # ---------------------------------------------------------
 
     def setup_Pre_Game(self, MainWindow):
 
@@ -206,14 +301,14 @@ class Ui_MainWindow(object):
         self.retranslatePre(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+
+    # ---------------Pregame window Backend--------------    
     def setup_actions_pregame(self):
         # Кнопки предигрового меню
         self.Back_to_main_menu_button.clicked.connect(self.to_main)
         self.Play_the_game_button.clicked.connect(self.setup_game)
 
     def setup_game(self):
-        '''@!brief Функция присваивания никнеймов
-        '''
         global First_player_nickname
         First_player_nickname = self.First_player_nickname_text.toPlainText()
         global Second_player_nickname
@@ -222,10 +317,14 @@ class Ui_MainWindow(object):
         Word = self.Current_word_text.toPlainText()
  
     def to_main(self):
-        '''@!brief Функция закрытия Пре-окна
-        '''
-        self.setupUi(self)
+        self.setup_main(self)
         self.setup_actions_main()
+
+    # -----------------------------------------------------
+
+    def retranslateSettings(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
 
 
     def retranslatePre(self, MainWindow):
@@ -239,5 +338,3 @@ class Ui_MainWindow(object):
         '''
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-
-
