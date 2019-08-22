@@ -9,7 +9,7 @@ from PIL import Image
 import tkinter
 import vlc
 
-melody = vlc.MediaPlayer("jose-gonzalez-crosses.mp3")
+melody = vlc.MediaPlayer("music/jose-gonzalez-crosses.mp3")
 
 First_player_nickname = ''
 Second_player_nickname = ''
@@ -53,11 +53,11 @@ class Startup(object):
         self.label.setGeometry(QtCore.QRect(0, 0, width, height))
         self.label.setText("")
 
-        resize_image("Menu_png.png", "T_Menu_png.png", (width, height))
+        resize_image("graphics/Menu_png.png", "graphics/T_Menu_png.png", (width, height))
         new_button_width = (width / 1440) * 571 # Изменение ширины кнопки
         new_button_height = (height / 900) * 111 # Изменение высоты кнопки
         
-        self.label.setPixmap(QtGui.QPixmap("T_Menu_png.png"))
+        self.label.setPixmap(QtGui.QPixmap("graphics/T_Menu_png.png"))
         self.label.setObjectName("label")
 
         self.Play_button = QtWidgets.QPushButton(self.centralwidget)
@@ -70,9 +70,9 @@ class Startup(object):
         self.Play_button.setText("")
         icon = QtGui.QIcon()
 
-        resize_image("Play_button_png.png", "T_Play_button_png.png", (int(new_button_width), int(new_button_height)))
+        resize_image("graphics/Play_button_png.png", "graphics/T_Play_button_png.png", (int(new_button_width), int(new_button_height)))
 
-        icon.addPixmap(QtGui.QPixmap("T_Play_button_png.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("graphics/T_Play_button_png.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Play_button.setIcon(icon)
         self.Play_button.setIconSize(QtCore.QSize(new_button_width, new_button_height))
         self.Play_button.setCheckable(False)
@@ -82,27 +82,27 @@ class Startup(object):
         self.Play_button.setFlat(False)
         self.Play_button.setObjectName("Play_button")
 
-        resize_image("Settings_button_png.png", "T_Settings_button_png.png", (int(new_button_width), int(new_button_height)))
+        resize_image("graphics/Settings_button_png.png", "graphics/T_Settings_button_png.png", (int(new_button_width), int(new_button_height)))
 
         self.Settings_button = QtWidgets.QPushButton(self.centralwidget)
         self.Settings_button.setGeometry(QtCore.QRect((width - new_button_width) / 2, 460 * (height / 900), new_button_width, new_button_height))
         self.Settings_button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.Settings_button.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("T_Settings_button_png.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("graphics/T_Settings_button_png.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Settings_button.setIcon(icon1)
         self.Settings_button.setIconSize(QtCore.QSize(new_button_width, new_button_height))
         self.Settings_button.setFlat(False)
         self.Settings_button.setObjectName("Settings_button")
 
-        resize_image("Rules_button_png.png", "T_Rules_button_png.png", (int(new_button_width), int(new_button_height)))
+        resize_image("graphics/Rules_button_png.png", "graphics/T_Rules_button_png.png", (int(new_button_width), int(new_button_height)))
 
         self.Rules_button = QtWidgets.QPushButton(self.centralwidget)
         self.Rules_button.setGeometry(QtCore.QRect((width - new_button_width) / 2, 690 * (height / 900), new_button_width, new_button_height))
         self.Rules_button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.Rules_button.setText("")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("T_Rules_button_png.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon2.addPixmap(QtGui.QPixmap("graphics/T_Rules_button_png.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Rules_button.setIcon(icon2)
         self.Rules_button.setIconSize(QtCore.QSize(new_button_width, new_button_height))
         self.Rules_button.setFlat(False)
@@ -150,9 +150,9 @@ class Startup(object):
         self.label.setGeometry(QtCore.QRect(0, 0, width, height))
         self.label.setText("")
 
-        resize_image("Settings_png.png", "T_Settings_png.png", (width, height))
+        resize_image("graphics/Settings_png.png", "graphics/T_Settings_png.png", (width, height))
 
-        self.label.setPixmap(QtGui.QPixmap("T_Settings_png.png"))
+        self.label.setPixmap(QtGui.QPixmap("graphics/T_Settings_png.png"))
         self.label.setObjectName("label")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(width_k * 890, height_k * 190, width_k * 100, height_k * 100))
@@ -160,11 +160,11 @@ class Startup(object):
         self.pushButton.setText("")
         icon = QtGui.QIcon()
 
-        resize_image("Off_button_png.png", "T_Off_button_png.png", (int(width_k * 100), int(height_k * 100)))
-        resize_image("On_button_png.png", "T_On_button_png.png", (int(width_k * 100), int(height_k * 100)))
+        resize_image("graphics/Off_button_png.png", "graphics/T_Off_button_png.png", (int(width_k * 100), int(height_k * 100)))
+        resize_image("graphics/On_button_png.png", "graphics/T_On_button_png.png", (int(width_k * 100), int(height_k * 100)))
 
-        icon.addPixmap(QtGui.QPixmap("T_Off_button_png.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        icon.addPixmap(QtGui.QPixmap("T_On_button_png.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon.addPixmap(QtGui.QPixmap("graphics/T_Off_button_png.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("graphics/T_On_button_png.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.pushButton.setIcon(icon)
         self.pushButton.setIconSize(QtCore.QSize(width_k * 100, height_k * 100))
         self.pushButton.setCheckable(True)
@@ -197,9 +197,9 @@ class Startup(object):
         self.Back_to_main_menu_button.setText("")
         icon1 = QtGui.QIcon()
 
-        resize_image("Back_to_main_menu_button_png.png", "T_Back_to_main_menu_button_png.png", (int(width_k * 361), int(height_k * 91)))
+        resize_image("graphics/Back_to_main_menu_button_png.png", "graphics/T_Back_to_main_menu_button_png.png", (int(width_k * 361), int(height_k * 91)))
 
-        icon1.addPixmap(QtGui.QPixmap("T_Back_to_main_menu_button_png.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("graphics/T_Back_to_main_menu_button_png.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Back_to_main_menu_button.setIcon(icon1)
         self.Back_to_main_menu_button.setIconSize(QtCore.QSize(width_k * 361, height_k * 91))
         self.Back_to_main_menu_button.setObjectName("Back_to_main_menu_button")
@@ -241,9 +241,9 @@ class Startup(object):
         self.label.setGeometry(QtCore.QRect(0, 0, width, height))
         self.label.setText("")
 
-        resize_image("Before_the_game_png.png" , "T_Before_the_game_png.png", (width, height))
+        resize_image("graphics/Before_the_game_png.png" , "graphics/T_Before_the_game_png.png", (width, height))
 
-        self.label.setPixmap(QtGui.QPixmap("T_Before_the_game_png.png"))
+        self.label.setPixmap(QtGui.QPixmap("graphics/T_Before_the_game_png.png"))
         self.label.setObjectName("label")
 
         self.Play_the_game_button = QtWidgets.QPushButton(self.centralwidget)
@@ -252,9 +252,9 @@ class Startup(object):
         self.Play_the_game_button.setText("")
         icon = QtGui.QIcon()
 
-        resize_image("Play_button_after_play_was_pressed.png", "T_Play_button_after_play_was_pressed.png", (int(width_k * 700), int(height_k * 181)))
+        resize_image("graphics/Play_button_after_play_was_pressed.png", "graphics/T_Play_button_after_play_was_pressed.png", (int(width_k * 700), int(height_k * 181)))
 
-        icon.addPixmap(QtGui.QPixmap("T_Play_button_after_play_was_pressed.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("graphics/T_Play_button_after_play_was_pressed.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Play_the_game_button.setIcon(icon)
         self.Play_the_game_button.setIconSize(QtCore.QSize(int(width_k * 700), int(height_k * 181)))
         self.Play_the_game_button.setFlat(True)
@@ -289,9 +289,9 @@ class Startup(object):
         self.Back_to_main_menu_button.setText("")
         icon1 = QtGui.QIcon()
 
-        resize_image("Back_to_main_menu_button_png.png", "T_Back_to_main_menu_button_png.png", (int(width_k * 356), int(height_k * 91)))
+        resize_image("graphics/Back_to_main_menu_button_png.png", "graphics/T_Back_to_main_menu_button_png.png", (int(width_k * 356), int(height_k * 91)))
 
-        icon1.addPixmap(QtGui.QPixmap("T_Back_to_main_menu_button_png.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("graphics/T_Back_to_main_menu_button_png.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Back_to_main_menu_button.setIcon(icon1)
         self.Back_to_main_menu_button.setIconSize(QtCore.QSize(width_k * 356, height_k * 91))
         self.Back_to_main_menu_button.setFlat(True)
@@ -332,9 +332,9 @@ class Startup(object):
         self.label.setMouseTracking(False)
         self.label.setText("")
 
-        resize_image("Rules_png.png", "T_Rules_png.png", (width, height))
+        resize_image("graphics/Rules_png.png", "graphics/T_Rules_png.png", (width, height))
 
-        self.label.setPixmap(QtGui.QPixmap("T_Rules_png.png"))
+        self.label.setPixmap(QtGui.QPixmap("graphics/T_Rules_png.png"))
         self.label.setObjectName("label")
 
         self.Back_to_main_menu_button = QtWidgets.QPushButton(self.centralwidget)
@@ -343,9 +343,9 @@ class Startup(object):
         self.Back_to_main_menu_button.setText("")
         icon = QtGui.QIcon()
 
-        resize_image("Back_to_main_menu_button_png.png", "T_Back_to_main_menu_button_png.png", (int(356 * width_k), int(91 * height_k)))
+        resize_image("graphics/Back_to_main_menu_button_png.png", "graphics/T_Back_to_main_menu_button_png.png", (int(356 * width_k), int(91 * height_k)))
 
-        icon.addPixmap(QtGui.QPixmap("T_Back_to_main_menu_button_png.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("graphics/T_Back_to_main_menu_button_png.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Back_to_main_menu_button.setIcon(icon)
         self.Back_to_main_menu_button.setIconSize(QtCore.QSize(356 * width_k, 91 * height_k))
         self.Back_to_main_menu_button.setObjectName("Back_to_main_menu_button")

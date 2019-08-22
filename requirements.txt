@@ -3,3 +3,4 @@ pandas
 PyQt5 
 Pillow
 tkinter
+vlc
