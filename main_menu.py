@@ -9,8 +9,6 @@ from PIL import Image
 import tkinter
 import vlc
 
-#player = vlc.MediaPlayer("jose-gonzalez-crosses.mp3")
-
 melody = vlc.MediaPlayer("jose-gonzalez-crosses.mp3")
 
 First_player_nickname = ''
@@ -34,10 +32,9 @@ height = r.winfo_screenheight()
 width_k = width / 1440
 height_k = height / 900
 
-class Ui_MainWindow(object):
-    '''!@brief Класс главного окна игры, содержащий все необходимые виджеты
-        
-    '''
+class Startup(object):
+
+    # -----------------Main window frontend-------------------
     def setup_main(self, MainWindow):
         '''!@brief Фукнция, расставляющая виджеты по экрану
 
@@ -112,10 +109,10 @@ class Ui_MainWindow(object):
         self.Rules_button.setObjectName("Rules_button")
         MainWindow.setCentralWidget(self.centralwidget)
 
-        self.retranslateMain(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
-    
-    # -------------Main window Backend--------
+    # -----------------------------------------------------
+
+
+    # -------------Main window Backend---------------------
     def setup_actions_main(self):
         self.Play_button.clicked.connect(self.to_pregame)
         self.Settings_button.clicked.connect(self.to_settings)
@@ -136,10 +133,13 @@ class Ui_MainWindow(object):
     def to_rules(self):
         '''!@brief Функция вызова правил игры
         '''
-        self.dialog_rules.show()
+        self.setup_rules(self)
+        self.setup_actions_rules()
 
-    # ------------------------------------------
+    # ----------------------------------------------------------------
 
+
+    # -------------------Settings window frontend--------------------- 
     def setup_settings(self, MainWindow):
         self.centralwidget.deleteLater()
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -209,9 +209,7 @@ class Ui_MainWindow(object):
         self.horizontalSlider.setOrientation(QtCore.Qt.Horizontal)
         self.horizontalSlider.setObjectName("horizontalSlider")
         MainWindow.setCentralWidget(self.centralwidget)
-
-        self.retranslateSettings(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+    # ---------------------------------------------------------
 
     # ----------------Settings Window Backend------------------
     def setup_actions_settings(self):
@@ -229,8 +227,10 @@ class Ui_MainWindow(object):
         pass
     
     # Возврат в главное меню - метод to_main общий для нескольких кнопок
-    # ---------------------------------------------------------
+    # ------------------------------------------------------------
 
+
+    # ---------------Pre Game menu frontend-----------------------
     def setup_Pre_Game(self, MainWindow):
 
         self.centralwidget.deleteLater()
@@ -297,10 +297,7 @@ class Ui_MainWindow(object):
         self.Back_to_main_menu_button.setFlat(True)
         self.Back_to_main_menu_button.setObjectName("Back_to_main_menu_button")
         MainWindow.setCentralWidget(self.centralwidget)
-
-        self.retranslatePre(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
+    # ---------------------------------------------------
 
     # ---------------Pregame window Backend--------------    
     def setup_actions_pregame(self):
@@ -319,22 +316,44 @@ class Ui_MainWindow(object):
     def to_main(self):
         self.setup_main(self)
         self.setup_actions_main()
-
     # -----------------------------------------------------
 
-    def retranslateSettings(self, MainWindow):
-        _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+    # --------------Rules window frontend------------------
+    def setup_rules(self, MainWindow):
+        self.centralwidget.deleteLater()
 
+        MainWindow.setObjectName("MainWindow")
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
 
-    def retranslatePre(self, MainWindow):
-        _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(0, 0, width, height))
+        self.label.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
+        self.label.setMouseTracking(False)
+        self.label.setText("")
 
+        resize_image("Rules_png.png", "T_Rules_png.png", (width, height))
 
-    def retranslateMain(self, MainWindow):
-        '''!@biref ретранслирует интерфейс
+        self.label.setPixmap(QtGui.QPixmap("T_Rules_png.png"))
+        self.label.setObjectName("label")
 
-        '''
-        _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.Back_to_main_menu_button = QtWidgets.QPushButton(self.centralwidget)
+        self.Back_to_main_menu_button.setGeometry(QtCore.QRect(20 * width_k, 30 * height_k, 356 * width_k, 91 * height_k))
+        self.Back_to_main_menu_button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.Back_to_main_menu_button.setText("")
+        icon = QtGui.QIcon()
+
+        resize_image("Back_to_main_menu_button_png.png", "T_Back_to_main_menu_button_png.png", (int(356 * width_k), int(91 * height_k)))
+
+        icon.addPixmap(QtGui.QPixmap("T_Back_to_main_menu_button_png.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.Back_to_main_menu_button.setIcon(icon)
+        self.Back_to_main_menu_button.setIconSize(QtCore.QSize(356 * width_k, 91 * height_k))
+        self.Back_to_main_menu_button.setObjectName("Back_to_main_menu_button")
+        MainWindow.setCentralWidget(self.centralwidget)
+
+    # ----------------------------------------------------------------
+
+    # ------------------------Rules window backend--------------------
+    def setup_actions_rules(self):
+        self.Back_to_main_menu_button.clicked.connect(self.to_main)
+    # ----------------------------------------------------------------

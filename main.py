@@ -7,21 +7,12 @@ import sys
 from PyQt5 import QtWidgets, QtCore, QtGui
 import main_menu
 import game_process_menu
-import settings
-import rules_menu
 from cards import clean, get_output, set_output
 from interpret import interpretation
 
 
-'''global First_player_nickname
-First_player_nickname = ''
-global Second_player_nickname
-Second_player_nickname = ''
-global Word
-Word = ''
-'''
 
-class Main_Window(QtWidgets.QMainWindow, main_menu.Ui_MainWindow):
+class Main_Window(QtWidgets.QMainWindow, main_menu.Startup):
     '''!@brief Класс описания параметров и функций кнопок главного меню
     '''
     def __init__(self, parent=None):
@@ -252,34 +243,6 @@ class Play_Window(QtWidgets.QMainWindow, game_process_menu.Ui_MainWindow):
         '''!@brief Фукнция возвратa
         '''
         self.hide()
-        
-class Settings_Window(QtWidgets.QMainWindow, settings.Ui_MainWindow):
-    '''!@brief Класс вызова окна настроек
-    '''
-    def __init__(self, parent=None):
-        super().__init__()
-        self.setupUi(self)
-        self.Back_to_main_menu_button.clicked.connect(self.comeback)
-
-    def comeback(self):
-        '''!@brief Функция возврата
-        '''
-        self.hide()
-        
-       
-class Rules_Window(QtWidgets.QMainWindow, rules_menu.Ui_MainWindow):
-    '''!@brief Класс вызова правил игры
-    '''
-    def __init__(self, parent=None):
-        super().__init__()
-        self.setupUi(self)
-        self.Back_to_main_menu_button.clicked.connect(self.comeback)
-
-    def comeback(self):
-        '''!@brief Функция возврата
-        '''
-        self.hide()
-
    
 def main():
     '''!@brief основная функция работы файла
