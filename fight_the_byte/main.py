@@ -2,14 +2,11 @@
 
 '''
 
-from randomizer1 import*
 import sys
 from PyQt5 import QtWidgets, QtCore, QtGui
 import main_menu
 from cards import clean, get_output, set_output
 from interpret import interpretation
-
-
 
 class Main_Window(QtWidgets.QMainWindow, main_menu.Startup):
     '''!@brief Класс описания параметров и функций кнопок главного меню

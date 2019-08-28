@@ -6,8 +6,11 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PIL import Image
+from randomizer1 import*
 import tkinter
 import vlc
+
+HAND_SIZE = 8
 
 melody = vlc.MediaPlayer("music/jose-gonzalez-crosses.mp3")
 
@@ -306,8 +309,8 @@ class Startup(object):
         self.Play_the_game_button.clicked.connect(self.setup_game)
 
     def setup_game(self):
-        self.First_player_nickname = self.First_player_nickname_text.toPlainText()
-        self.Second_player_nickname = self.Second_player_nickname_text.toPlainText()
+        self.First_player_name = self.First_player_nickname_text.toPlainText()
+        self.Second_player_name = self.Second_player_nickname_text.toPlainText()
         self.Word = self.Current_word_text.toPlainText()
         self.setup_game_process(self)
         self.setup_actions_game_process()
@@ -382,79 +385,35 @@ class Startup(object):
         self.Back_to_main_menu_button.setIcon(icon)
         self.Back_to_main_menu_button.setIconSize(QtCore.QSize(width_k * 291, height_k * 81))
         self.Back_to_main_menu_button.setObjectName("Back_to_main_menu_button")
-        self.Card0 = QtWidgets.QPushButton(self.centralwidget)
-        self.Card0.setGeometry(QtCore.QRect(560, 220, 321, 51))  # placement
+
+        self.card_obj_list = []
+
+        self.button_x = 321 * width_k
+        self.button_y = 51 * height_k
+        self.button_orientation_hor = 560 * width_k
+        self.button_orientation_vert = 220
+
         font = QtGui.QFont()
         font.setPointSize(23)
-        self.Card0.setFont(font)
-        self.Card0.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.Card0.setFlat(True)
-        self.Card0.setObjectName("Card0")
-        self.Card1 = QtWidgets.QPushButton(self.centralwidget)
-        self.Card1.setGeometry(QtCore.QRect(560, 280, 321, 51))  # placement
-        font = QtGui.QFont()
-        font.setPointSize(23)
-        self.Card1.setFont(font)
-        self.Card1.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.Card1.setFlat(True)
-        self.Card1.setObjectName("Card1")
-        self.Card2 = QtWidgets.QPushButton(self.centralwidget)
-        self.Card2.setGeometry(QtCore.QRect(560, 340, 321, 51))  # placement
-        font = QtGui.QFont()
-        font.setPointSize(23)
-        self.Card2.setFont(font)
-        self.Card2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.Card2.setFlat(True)
-        self.Card2.setObjectName("Card2")
-        self.Card3 = QtWidgets.QPushButton(self.centralwidget)
-        self.Card3.setGeometry(QtCore.QRect(560, 400, 321, 51))  # placement
-        font = QtGui.QFont()
-        font.setPointSize(23)
-        self.Card3.setFont(font)
-        self.Card3.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.Card3.setFlat(True)
-        self.Card3.setObjectName("Card3")
-        self.Card4 = QtWidgets.QPushButton(self.centralwidget)
-        self.Card4.setGeometry(QtCore.QRect(560, 460, 321, 51))  # placement
-        font = QtGui.QFont()
-        font.setPointSize(23)
-        self.Card4.setFont(font)
-        self.Card4.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.Card4.setFlat(True)
-        self.Card4.setObjectName("Card4")
-        self.Card5 = QtWidgets.QPushButton(self.centralwidget)
-        self.Card5.setGeometry(QtCore.QRect(560, 520, 321, 51))  # placement
-        font = QtGui.QFont()
-        font.setPointSize(23)
-        self.Card5.setFont(font)
-        self.Card5.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.Card5.setFlat(True)
-        self.Card5.setObjectName("Card5")
-        self.Card6 = QtWidgets.QPushButton(self.centralwidget)
-        self.Card6.setGeometry(QtCore.QRect(560, 580, 321, 51))  # placement
-        font = QtGui.QFont()
-        font.setPointSize(23)
-        self.Card6.setFont(font)
-        self.Card6.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.Card6.setFlat(True)
-        self.Card6.setObjectName("Card6")
-        self.Card7 = QtWidgets.QPushButton(self.centralwidget)
-        self.Card7.setGeometry(QtCore.QRect(560, 640, 321, 51))  # placement 
-        font = QtGui.QFont()
-        font.setPointSize(23)
-        self.Card7.setFont(font)
-        self.Card7.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.Card7.setFlat(True)
-        self.Card7.setObjectName("Card7")
+
+        for i in range(HAND_SIZE): # Создание кнопок
+            self.card_obj_list.append(QtWidgets.QPushButton(self.centralwidget))
+            self.card_obj_list[i].setGeometry(QtCore.QRect(self.button_orientation_hor, self.button_orientation_vert * height_k, self.button_x, self.button_y))
+            self.card_obj_list[i].setFont(font)
+            self.card_obj_list[i].setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+            self.card_obj_list[i].setFlat(True)
+            self.button_orientation_vert += 60
+    
         self.First_player_label = QtWidgets.QLabel(self.centralwidget)
-        self.First_player_label.setGeometry(QtCore.QRect(110, 160, 351, 591))
+        self.First_player_label.setGeometry(QtCore.QRect(width_k * 110, height_k * 160, width_k * 351, height_k * 591))
         font = QtGui.QFont()
         font.setPointSize(25)
         self.First_player_label.setFont(font)
         self.First_player_label.setText("")
         self.First_player_label.setObjectName("First_player_label")
+
         self.Second_player_label = QtWidgets.QLabel(self.centralwidget)
-        self.Second_player_label.setGeometry(QtCore.QRect(1040, 160, 351, 601))
+        self.Second_player_label.setGeometry(QtCore.QRect(width_k * 1040, height_k * 160, width_k * 351, height_k * 601))
         font = QtGui.QFont()
         font.setPointSize(25)
         self.Second_player_label.setFont(font)
@@ -475,37 +434,98 @@ class Startup(object):
         self.Refresh_button.setObjectName("Refresh_button")
 
         self.First_player_nickname = QtWidgets.QLabel(self.centralwidget)
-        self.First_player_nickname.setGeometry(QtCore.QRect(90, 108, 291, 41))
+        self.First_player_nickname.setGeometry(QtCore.QRect(width_k * 90, height_k * 108, width_k * 291, height_k * 41))
         font = QtGui.QFont()
-        font.setPointSize(13)
+        font.setPointSize(17)
         self.First_player_nickname.setFont(font)
-        self.First_player_nickname.setText("")
+        self.First_player_nickname.setText(self.First_player_name)
         self.First_player_nickname.setObjectName("First_player_nickname")
+
         self.Second_player_nickname = QtWidgets.QLabel(self.centralwidget)
-        self.Second_player_nickname.setGeometry(QtCore.QRect(1015, 108, 291, 41))
+        self.Second_player_nickname.setGeometry(QtCore.QRect(width_k * 1015, height_k * 108, width_k * 291, height_k * 41))
         font = QtGui.QFont()
-        font.setPointSize(13)
+        font.setPointSize(17)
         self.Second_player_nickname.setFont(font)
-        self.Second_player_nickname.setText("")
+        self.Second_player_nickname.setText(self.Second_player_name)
         self.Second_player_nickname.setObjectName("Second_player_nickname")
+
         self.Current_word = QtWidgets.QLabel(self.centralwidget)
-        self.Current_word.setGeometry(QtCore.QRect(700, 13, 231, 51))
+        self.Current_word.setGeometry(QtCore.QRect(width_k * 700, height_k * 13, width_k * 231, height_k * 51))
         font = QtGui.QFont()
         font.setPointSize(24)
         self.Current_word.setFont(font)
         self.Current_word.setText("")
         self.Current_word.setObjectName("Current_word")
+
         self.Output_label = QtWidgets.QLabel(self.centralwidget)
-        self.Output_label.setGeometry(QtCore.QRect(460, 790, 541, 81))
+        self.Output_label.setGeometry(QtCore.QRect(width_k * 460, height_k * 790, width_k * 541, height_k * 81))
         font = QtGui.QFont()
         font.setPointSize(25)
         self.Output_label.setFont(font)
         self.Output_label.setText("")
         self.Output_label.setObjectName("Output_label")
+
         MainWindow.setCentralWidget(self.centralwidget)
     # ------------------------------------------------------------------
 
     # -----------------------Game window backend------------------------
     def setup_actions_game_process(self):
         self.Back_to_main_menu_button.clicked.connect(self.to_main)
+        self.Refresh_button.clicked.connect(self.Cards_generate)
+
+        '''
+        for i in range(HAND_SIZE):
+            self.card_obj_list[i].clicked.connect(self.)
+        self.Card0.clicked.connect(self.Card_0_add)
+        self.Card1.clicked.connect(self.Card_1_add)
+        self.Card2.clicked.connect(self.Card_2_add)
+        self.Card3.clicked.connect(self.Card_3_add)
+        self.Card4.clicked.connect(self.Card_4_add)
+        self.Card5.clicked.connect(self.Card_5_add)
+        self.Card6.clicked.connect(self.Card_6_add)
+        self.Card7.clicked.connect(self.Card_7_add)
+        '''
+
+        self.Turn = 0
+
+        self.First_player_label_text = ''
+        self.Second_player_label_text = ''
+        
+        self.First_player_label.setText('')
+        self.Second_player_label.setText('')
+        
+        '''
+        self.Card0.setText('')
+        self.Card1.setText('')
+        self.Card2.setText('')
+        self.Card3.setText('')
+        self.Card4.setText('')
+        self.Card5.setText('')
+        self.Card6.setText('')
+        self.Card7.setText('')
+        '''
+
+        self.First_player_stack = []
+        self.Second_player_stack = []
+    
+        self.Current_word.setText(self.Word)
+        
+        self.winner = 0
+
+        self.data = pd.DataFrame()  # Информация о переменных (для невменяемых)
+        self.cards_array = []  # Массив карточек 
+        self.num = 8  # Количество карточек
+
+    def Cards_generate(self): 
+        self.data, self.cards_array = generate_draft(self.num, self.data, self.Word)
+
+        self.data_card = []
+        self.data_card_text = []
+
+        for i in range(len(self.cards_array)):
+            self.data_card.append(self.cards_array[i])
+            self.data_card_text.append(self.cards_array[i].view())
+
+        for i in range(HAND_SIZE):
+            self.card_obj_list[i].setText(self.data_card_text[i])
     # -----------------------------------------------------------------
