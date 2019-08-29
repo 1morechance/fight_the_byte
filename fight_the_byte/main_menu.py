@@ -296,6 +296,7 @@ class Startup(object):
         self.First_player_nickname_text.setFont(font)
         self.First_player_nickname_text.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.First_player_nickname_text.setObjectName("First_player_nickname_text")
+
         self.Second_player_nickname_text = QtWidgets.QTextEdit(self.centralwidget)
         self.Second_player_nickname_text.setGeometry(QtCore.QRect(width_k * 920, height_k * 350, width_k * 271, height_k * 61))
         font = QtGui.QFont()
@@ -337,6 +338,7 @@ class Startup(object):
     def setup_game(self):
         self.First_player_name = self.First_player_nickname_text.toPlainText()
         self.Second_player_name = self.Second_player_nickname_text.toPlainText()
+        self.players_dict = {1 : self.First_player_name, 2 : self.Second_player_name}
         self.Word = self.Current_word_text.toPlainText()
         self.setup_game_process(self)
         self.setup_actions_game_process()
@@ -388,8 +390,10 @@ class Startup(object):
 
     # -----------------------Game window frontend---------------------
     def setup_game_process(self, MainWindow):
+        self.centralwidget.deleteLater()
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(0, 0, width, height))
         self.label.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
@@ -534,9 +538,10 @@ class Startup(object):
         self.Turn += 1
         if (self.Turn % 2 == 0):
             clean()
-            self.winner = interpretation(self.First_player_stack, self.Second_player_stack, self.Word)
+            self.winner = interpretation(self.First_player_stack, self.Second_player_stack, self.Word, self)
             if (self.winner):
-                print("Player " + str(self.winner) + " победил")
+                self.setup_results()
+                self.output_window.setText("Player " + self.players_dict[self.winner] + " is the winner")
 
     def Cards_generate(self): 
         self.data, self.cards_array = generate_draft(self.num, self.data, self.Word)
@@ -547,4 +552,33 @@ class Startup(object):
 
         for i in range(HAND_SIZE):
             self.card_obj_list[i].setText(self.data_card_text[i])
+    # -----------------------------------------------------------------
+
+    def setup_results(self):
+        self.setup_results_gui(self)
+        self.setup_results_actions()
+
+    # ------------------------results window frontend -----------------
+    def setup_results_gui(self, MainWindow):
+        self.centralwidget.deleteLater()
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(0, 0, width, height))
+        self.label.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
+        self.label.setText("")
+        # self.label.setPixmap(QtGui.QPixmap("")) # для фона
+
+        self.output_window = QtWidgets.QLabel(self.centralwidget)
+        self.output_window.setGeometry(QtCore.QRect(width / 2 - 400 * width_k, height / 2 - 100 * height_k, width_k  * 1000, height_k * 200))
+        font = QtGui.QFont()
+        font.setPointSize(30)
+        self.output_window.setFont(font)
+        self.output_window.setText("")
+
+        MainWindow.setCentralWidget(self.centralwidget)
+    # -----------------------------------------------------------------
+
+    # ------------------------results window backend ------------------
+    def setup_results_actions(self):
+        pass
     # -----------------------------------------------------------------

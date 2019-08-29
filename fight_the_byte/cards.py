@@ -417,6 +417,8 @@ class Putchar_card:
                 if var.get_value() != None:
                     global output_string
                     output_string += var.get_value()
+                    print(var.get_value(), " - add symb")
+                    print(output_string, " - output stringg")
                 else:
                     raise RuntimeError("Ошибка: " + self.name + " не была инициализирована ранее")
         if (not is_exist):
