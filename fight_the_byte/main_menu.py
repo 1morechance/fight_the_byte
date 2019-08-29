@@ -7,8 +7,34 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PIL import Image
 from randomizer1 import*
+from interpret import interpretation
 import tkinter
 import vlc
+
+class Action_function():
+    def __init__(self, i, object):
+        self.index = i
+        self.info = object
+
+    def card_add(self):
+        if (self.info.Turn % 2 == 0):
+            self.info.First_player_label_text += self.info.data_card_text[self.index] + "\n"
+            self.info.First_player_stack.append(self.info.data_card[self.index])
+            self.info.First_player_label.setText(self.info.First_player_label_text)
+            self.info.card_obj_list[self.index].setText('')
+        if (self.info.Turn % 2 == 1):
+            self.info.Second_player_label_text += self.info.data_card_text[self.index] + "\n"
+            self.info.Second_player_stack.append(self.info.data_card[self.index])
+            self.info.Second_player_label.setText(self.info.Second_player_label_text)
+            self.info.card_obj_list[self.index].setText('')
+        self.info.next_turn()
+        self.info.Output_label.setText(get_output())
+
+    def back_function(self):
+        return self.card_add
+
+    def update_situation(self):
+        return self.info    
 
 HAND_SIZE = 8
 
@@ -473,18 +499,12 @@ class Startup(object):
         self.Back_to_main_menu_button.clicked.connect(self.to_main)
         self.Refresh_button.clicked.connect(self.Cards_generate)
 
-        '''
+        self.data_card = []
+        self.data_card_text = []
+
         for i in range(HAND_SIZE):
-            self.card_obj_list[i].clicked.connect(self.)
-        self.Card0.clicked.connect(self.Card_0_add)
-        self.Card1.clicked.connect(self.Card_1_add)
-        self.Card2.clicked.connect(self.Card_2_add)
-        self.Card3.clicked.connect(self.Card_3_add)
-        self.Card4.clicked.connect(self.Card_4_add)
-        self.Card5.clicked.connect(self.Card_5_add)
-        self.Card6.clicked.connect(self.Card_6_add)
-        self.Card7.clicked.connect(self.Card_7_add)
-        '''
+            self.data_card.append(i)
+            self.data_card_text.append("")
 
         self.Turn = 0
 
@@ -493,17 +513,6 @@ class Startup(object):
         
         self.First_player_label.setText('')
         self.Second_player_label.setText('')
-        
-        '''
-        self.Card0.setText('')
-        self.Card1.setText('')
-        self.Card2.setText('')
-        self.Card3.setText('')
-        self.Card4.setText('')
-        self.Card5.setText('')
-        self.Card6.setText('')
-        self.Card7.setText('')
-        '''
 
         self.First_player_stack = []
         self.Second_player_stack = []
@@ -516,15 +525,25 @@ class Startup(object):
         self.cards_array = []  # Массив карточек 
         self.num = 8  # Количество карточек
 
+        self.obj_array = []
+        for i in range(HAND_SIZE):
+            self.obj_array.append(Action_function(i ,self))  # создание объекта с функцией активации кнопки
+            self.card_obj_list[i].clicked.connect(self.obj_array[i].back_function()) # данный метод возвратит функцию активации кнопки
+            
+    def next_turn(self):
+        self.Turn += 1
+        if (self.Turn % 2 == 0):
+            clean()
+            self.winner = interpretation(self.First_player_stack, self.Second_player_stack, self.Word)
+            if (self.winner):
+                print("Player " + str(self.winner) + " победил")
+
     def Cards_generate(self): 
         self.data, self.cards_array = generate_draft(self.num, self.data, self.Word)
 
-        self.data_card = []
-        self.data_card_text = []
-
-        for i in range(len(self.cards_array)):
-            self.data_card.append(self.cards_array[i])
-            self.data_card_text.append(self.cards_array[i].view())
+        for i in range(HAND_SIZE):
+            self.data_card[i] = self.cards_array[i]
+            self.data_card_text[i] = self.cards_array[i].view()
 
         for i in range(HAND_SIZE):
             self.card_obj_list[i].setText(self.data_card_text[i])
