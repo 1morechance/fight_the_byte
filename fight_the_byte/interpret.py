@@ -22,6 +22,6 @@ def interpretation(stack_1, stack_2, word, main_window):
                 return 2
         except RuntimeError as err:
             main_window.setup_results()
-            main_window.output_window.setText("Player " + main_window.players_dict[2] + " disqualificated by :\n" + str(err))
+            main_window.output_window.setText("Player '" + main_window.players_dict[2] + "' disqualificated by :\n" + str(err))
             return 0
     return 0
