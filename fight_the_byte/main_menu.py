@@ -541,7 +541,7 @@ class Startup(object):
             self.winner = interpretation(self.First_player_stack, self.Second_player_stack, self.Word, self)
             if (self.winner):
                 self.setup_results()
-                self.output_window.setText("Player " + self.players_dict[self.winner] + " is the winner")
+                self.output_window.setText("Player " + self.players_dict[self.winner] + " is the winner!!!")
 
     def Cards_generate(self): 
         self.data, self.cards_array = generate_draft(self.num, self.data, self.Word)
@@ -566,10 +566,12 @@ class Startup(object):
         self.label.setGeometry(QtCore.QRect(0, 0, width, height))
         self.label.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
         self.label.setText("")
-        # self.label.setPixmap(QtGui.QPixmap("")) # для фона
+
+        resize_image("graphics/winner.png", "graphics/T_winner.png", (width, height))
+        self.label.setPixmap(QtGui.QPixmap("graphics/T_winner.png")) # для фона
 
         self.output_window = QtWidgets.QLabel(self.centralwidget)
-        self.output_window.setGeometry(QtCore.QRect(width / 2 - 400 * width_k, height / 2 - 100 * height_k, width_k  * 1000, height_k * 200))
+        self.output_window.setGeometry(QtCore.QRect(width / 2 - 335 * width_k, height / 2 - 100 * height_k, width_k  * 1000, height_k * 200))
         font = QtGui.QFont()
         font.setPointSize(30)
         self.output_window.setFont(font)
