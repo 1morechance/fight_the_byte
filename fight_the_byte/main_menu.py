@@ -17,6 +17,7 @@ class Action_function():
         self.info = object
 
     def card_add(self):
+        self.info.sound_play()
         if (self.info.Turn % 2 == 0):
             self.info.First_player_label_text += self.info.data_card_text[self.index] + "\n"
             self.info.First_player_stack.append(self.info.data_card[self.index])
@@ -38,6 +39,7 @@ class Action_function():
 
 HAND_SIZE = 8
 
+sound = vlc.MediaPlayer("music/button_click.mp3")
 melody = vlc.MediaPlayer("music/jose-gonzalez-crosses.mp3")
 
 First_player_nickname = ''
@@ -150,18 +152,21 @@ class Startup(object):
     def to_pregame(self):
         '''!@brief Функция вызова начала игры
         '''
+        self.sound_play()
         self.setup_Pre_Game(self)
         self.setup_actions_pregame()
 
     def to_settings(self):
         '''!@brief Функция вызова настроек игры
         '''
+        self.sound_play()
         self.setup_settings(self)
         self.setup_actions_settings()
 
     def to_rules(self):
         '''!@brief Функция вызова правил игры
         '''
+        self.sound_play()
         self.setup_rules(self)
         self.setup_actions_rules()
 
@@ -194,20 +199,15 @@ class Startup(object):
 
         icon.addPixmap(QtGui.QPixmap("graphics/T_Off_button_png.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         icon.addPixmap(QtGui.QPixmap("graphics/T_On_button_png.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+
         self.pushButton.setIcon(icon)
         self.pushButton.setIconSize(QtCore.QSize(width_k * 100, height_k * 100))
         self.pushButton.setCheckable(True)
-        self.pushButton.setChecked(False)
-        '''
-        try:
-            if (not self.melody.is_playing()):
-                self.pushButton.setChecked(False)
-            else:
-                self.pushButton.setChecked(True)
-        except AttributeError:
-            pass
-        '''
         self.pushButton.setObjectName("pushButton")
+        if (self.sounds_control):
+            self.pushButton.setChecked(True)
+        else:
+            self.pushButton.setChecked(False)
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_2.setGeometry(QtCore.QRect(width_k * 890, height_k * 410, width_k * 100, height_k * 100))
         self.pushButton_2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
@@ -243,17 +243,22 @@ class Startup(object):
     # ----------------Settings Window Backend------------------
     def setup_actions_settings(self):
         self.Back_to_main_menu_button.clicked.connect(self.to_main)
+        self.pushButton.clicked.connect(self.sounds_check)
         self.pushButton_2.clicked.connect(self.music_check)
-        self.pushButton.clicked.connect(self.clicks)
+
+    def sounds_check(self):
+        self.sound_play()
+        if (self.pushButton.isChecked()):
+            self.sounds_control = True
+        else:
+            self.sounds_control = False
 
     def music_check(self):
+        self.sound_play()
         if (self.pushButton_2.isChecked()):
             melody.play()
         else:
             melody.pause()
-
-    def clicks(self):
-        pass
     
     # Возврат в главное меню - метод to_main общий для нескольких кнопок
     # ------------------------------------------------------------
@@ -336,6 +341,7 @@ class Startup(object):
         self.Play_the_game_button.clicked.connect(self.setup_game)
 
     def setup_game(self):
+        self.sound_play()
         self.First_player_name = self.First_player_nickname_text.toPlainText()
         self.Second_player_name = self.Second_player_nickname_text.toPlainText()
         self.players_dict = {1 : self.First_player_name, 2 : self.Second_player_name}
@@ -344,6 +350,7 @@ class Startup(object):
         self.setup_actions_game_process()
  
     def to_main(self):
+        self.sound_play()
         self.setup_main(self)
         self.setup_actions_main()
     # -----------------------------------------------------
@@ -541,9 +548,10 @@ class Startup(object):
             self.winner = interpretation(self.First_player_stack, self.Second_player_stack, self.Word, self)
             if (self.winner):
                 self.setup_results()
-                self.output_window.setText("Player " + self.players_dict[self.winner] + " is the winner!!!")
+                self.output_window.setText("Player '" + self.players_dict[self.winner] + "' is the winner!!!")
 
-    def Cards_generate(self): 
+    def Cards_generate(self):
+        self.sound_play() 
         self.data, self.cards_array = generate_draft(self.num, self.data, self.Word)
 
         for i in range(HAND_SIZE):
@@ -584,3 +592,10 @@ class Startup(object):
     def setup_results_actions(self):
         pass
     # -----------------------------------------------------------------
+    def sound_play(self):
+        if (self.sounds_control):
+            sound.stop()
+            sound.play()
+
+    # Атрибуты класса---------------------------------------------------        
+    sounds_control = False

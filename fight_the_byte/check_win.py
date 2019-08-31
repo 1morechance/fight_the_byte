@@ -14,7 +14,6 @@ def check_winner(word):
     '''
     i = 0
     current_state = get_output()
-    print(word, current_state, "states")
     while (i + len(word) - 1 < len(current_state)):
         cut = current_state[i:i + len(word)]
         if (cut == word):
