@@ -574,9 +574,22 @@ class Startup(object):
         self.label.setGeometry(QtCore.QRect(0, 0, width, height))
         self.label.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
         self.label.setText("")
-
         resize_image("graphics/winner.png", "graphics/T_winner.png", (width, height))
         self.label.setPixmap(QtGui.QPixmap("graphics/T_winner.png")) # для фона
+
+
+        self.play_again_button = QtWidgets.QPushButton(self.centralwidget)
+        self.play_again_button.setGeometry(QtCore.QRect(width_k * 20, height_k * 30, width_k * 361, height_k * 100))
+        self.play_again_button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.play_again_button.setText("")
+        icon1 = QtGui.QIcon()
+
+        resize_image("graphics/from_results_to_start_but.png", "graphics/T_from_results_to_start_but.png", (int(width_k * 361), int(height_k * 100)))
+
+        icon1.addPixmap(QtGui.QPixmap("graphics/T_from_results_to_start_but.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.play_again_button.setIcon(icon1)
+        self.play_again_button.setIconSize(QtCore.QSize(width_k * 361, height_k * 100))
+        
 
         self.output_window = QtWidgets.QLabel(self.centralwidget)
         self.output_window.setGeometry(QtCore.QRect(width / 2 - 335 * width_k, height / 2 - 100 * height_k, width_k  * 1000, height_k * 200))
@@ -590,7 +603,7 @@ class Startup(object):
 
     # ------------------------results window backend ------------------
     def setup_results_actions(self):
-        pass
+        self.play_again_button.clicked.connect(self.to_main)
     # -----------------------------------------------------------------
     def sound_play(self):
         if (self.sounds_control):
