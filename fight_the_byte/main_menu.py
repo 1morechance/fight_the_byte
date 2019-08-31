@@ -40,7 +40,7 @@ class Action_function():
 HAND_SIZE = 8
 
 sound = vlc.MediaPlayer("music/button_click.mp3")
-melody = vlc.MediaPlayer("music/jose-gonzalez-crosses.mp3")
+melody = vlc.MediaPlayer("music/tyla_yaweh.mp3")
 
 First_player_nickname = ''
 Second_player_nickname = ''
